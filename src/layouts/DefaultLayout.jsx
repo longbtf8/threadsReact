@@ -7,7 +7,7 @@ const DefaultLayout = () => {
   return (
     <>
       <Navigation />
-      <div className=" w-screen md:ml-[76px]">
+      <div className=" w-full md:ml-[40px]">
         <Outlet />
       </div>
     </>
