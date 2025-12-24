@@ -12,7 +12,7 @@ const Header = ({ title }) => {
             className="h-10 hover:scale-110 md:hidden"
           />
           {/* NavHome Or Title */}
-          <div className="hidden md:flex justify-between w-[632px]  relative h-full items-center p-4">
+          <div className="hidden md:flex justify-between w-[639px]  relative h-full items-center p-4">
             <div></div>
             <div>{title}</div>
             <div className="cursor-pointer ">
@@ -20,7 +20,7 @@ const Header = ({ title }) => {
             </div>
           </div>
           {/* <div className="hidden md:block absolute bottom-0 top-full h-[1px] bg-gray-200 md:w-[632px]"></div> */}
-          <div className="hidden md:block h-screen w-[664px] border-[1px] border-gray-200 absolute top-15 rounded-2xl"></div>
+          <div className="hidden md:block h-screen w-[639px] border-[1px] border-gray-200 absolute top-15 rounded-2xl"></div>
         </div>
       </div>
       {/* <div className="absolute top-5 right-4">
