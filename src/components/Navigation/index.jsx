@@ -1,10 +1,4 @@
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import { House, Search, Heart, Plus, User, Menu, Pin } from "lucide-react";
+import { House, Search, Heart, Plus, Menu, Pin, UserRound } from "lucide-react";
 import { NavLink } from "react-router";
 
 const items = [
@@ -19,6 +13,7 @@ const items = [
   {
     path: "/plus",
     icon: Plus,
+    background: true,
   },
   {
     path: "/heart",
@@ -26,7 +21,7 @@ const items = [
   },
   {
     path: "/user",
-    icon: User,
+    icon: UserRound,
   },
 ];
 
@@ -43,71 +38,65 @@ const itemsSetting = [
 
 const Navigation = () => {
   return (
-    <div className="fixed left-0 bottom-0 top-0">
-      <NavigationMenu className="flex flex-col h-screen w-[76px] justify-between items-center p-4">
+    <div className="fixed left-0 bottom-0 md:top-0  bg-white w-full md:w-[76px]">
+      <nav className="flex md:flex-col md:h-screen  md:justify-between items-center md:p-4 p-3 w-full h-16">
         {/* Logo */}
-        <NavigationMenuList>
-          <NavigationMenuItem>
+        <ul className="hidden md:block">
+          <li>
             <img
               src="./Thread_logo.svg"
               alt="logo"
               className="w-10  cursor-pointer hover:scale-110 transition "
             />
-          </NavigationMenuItem>
-        </NavigationMenuList>
+          </li>
+        </ul>
 
         {/* nav main */}
-        <NavigationMenuList className="flex flex-col">
+        <ul className="flex md:flex-col  justify-around md:w-auto items-center w-full h-full md:h-auto md:gap-y-0.5">
           {items.map((item, index) => {
             const Icon = item.icon;
             return (
-              <NavigationMenuItem key={index}>
-                <NavigationMenuLink
-                  asChild
-                  className=" flex justify-center items-center"
+              <li key={index} className="w-full h-full ">
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `h-full md:h-13 md:w-15 my-0.5  flex justify-center items-center rounded-xl ${
+                      item.icon === Plus
+                        ? "bg-gray-200 rounded-xl hover:text-black"
+                        : " "
+                    } ${isActive ? `text-black` : "text-gray-400 "}
+                    hover:bg-gray-200 transition duration-300`
+                  }
                 >
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `h-13 w-15 my-0.5 ${
-                        isActive ? `bg-gray-200 rounded-xl` : "bg-white"
-                      }`
-                    }
-                  >
-                    <Icon className="size-6" />
-                  </NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+                  <Icon className="size-6 " strokeWidth={3} />
+                </NavLink>
+              </li>
             );
           })}
-        </NavigationMenuList>
+        </ul>
 
         {/* nav setting */}
-        <NavigationMenuList className="flex flex-col mb-4">
+        <ul className="hidden md:flex md:flex-col mb-1.5">
           {itemsSetting.map((item, index) => {
             const Icon = item.icon;
             return (
-              <NavigationMenuItem key={index}>
-                <NavigationMenuLink
-                  asChild
-                  className=" flex justify-center items-center"
-                >
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `h-13 w-15 my-0.5 ${
-                        isActive ? `bg-gray-200 rounded-xl` : "bg-white"
-                      }`
+              <li key={index}>
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `h-13 w-15 my-0.5  flex justify-center items-center  ${
+                      isActive ? `text-black` : "text-gray-400 "
                     }
-                  >
-                    <Icon className="size-6" />
-                  </NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+                    hover:bg-gray-200 rounded-xl transition duration-300`
+                  }
+                >
+                  <Icon className="size-6" />
+                </NavLink>
+              </li>
             );
           })}
-        </NavigationMenuList>
-      </NavigationMenu>
+        </ul>
+      </nav>
     </div>
   );
 };

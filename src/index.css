@@ -121,3 +121,13 @@
     @apply bg-background text-foreground;
   }
 }
+@theme {
+  /* Custom Breakpoints for Threads */
+  --breakpoint-xs: 30rem; /* 480px - Extra small devices */
+  --breakpoint-sm: 40rem; /* 640px - Small devices (default Tailwind) */
+  --breakpoint-md: 43.75rem; /* 700px - Tablets (Mobile -> Web transition) */
+  --breakpoint-lg: 64rem; /* 1024px - Desktop (default Tailwind) */
+  --breakpoint-xl: 80rem; /* 1280px - Large desktop (default Tailwind) */
+  --breakpoint-2xl: 96rem; /* 1536px - Extra large desktop */
+  --breakpoint-3xl: 120rem; /* 1920px - Ultra wide */
+}
