@@ -1,6 +1,7 @@
 import { ArrowUpIcon, CircleEllipsis, Menu } from "lucide-react";
+import { Button } from "../ui/button";
 
-const Header = () => {
+const Header = ({ title }) => {
   return (
     <div className="fixed z-50 top-0 w-screen bg-white  ">
       <div className="flex justify-center items-center h-15 ">
@@ -13,13 +14,13 @@ const Header = () => {
           {/* NavHome Or Title */}
           <div className="hidden md:flex justify-between w-[632px]  relative h-full items-center p-4">
             <div></div>
-            <div>Title</div>
+            <div>{title}</div>
             <div className="cursor-pointer ">
               <CircleEllipsis />
             </div>
           </div>
-          <div className="hidden md:block absolute bottom-0 top-full h-[1px] bg-gray-200 w-[632px]"></div>
-          <div className="h-screen w-[664px] border-[1px] border-gray-200 absolute top-full rounded-2xl"></div>
+          {/* <div className="hidden md:block absolute bottom-0 top-full h-[1px] bg-gray-200 md:w-[632px]"></div> */}
+          <div className="hidden md:block h-screen w-[664px] border-[1px] border-gray-200 absolute top-15 rounded-2xl"></div>
         </div>
       </div>
       {/* <div className="absolute top-5 right-4">

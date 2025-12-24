@@ -38,7 +38,7 @@ const itemsSetting = [
 
 const Navigation = () => {
   return (
-    <div className="fixed left-0 bottom-0 md:top-0  bg-white w-full md:w-[76px]">
+    <div className="fixed z-99 left-0 bottom-0 md:top-0  bg-white w-full md:w-[76px]">
       <nav className="flex md:flex-col md:h-screen  md:justify-between items-center md:p-4 p-3 w-full h-16">
         {/* Logo */}
         <ul className="hidden md:block">
