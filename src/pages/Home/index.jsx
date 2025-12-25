@@ -6,7 +6,7 @@ const Home = () => {
       <div className=" w-full mx-auto justify-center">
         <Header title={"Home"} />
 
-        <div className="pt-15 flex justify-center  pl-4 pr-3  md:w-[639px] max-w-full ">
+        <div className="pt-15 flex justify-center pl-4 pr-3 w-full md:max-w-[639px]">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
           numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
           necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione

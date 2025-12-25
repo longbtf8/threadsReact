@@ -9,8 +9,8 @@ const DefaultLayout = () => {
       <Navigation />
       <div className="flex justify-center w-full md:ml-[40px] gap-x-1">
         <Outlet />
-        <Home />
-        <Home />
+        <Outlet />
+        <Outlet />
       </div>
     </div>
   );
