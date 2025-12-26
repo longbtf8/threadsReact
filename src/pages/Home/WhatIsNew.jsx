@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 const WhatIsNew = () => {
   return (
     <section className="h-17 hidden md:flex border-b p-4 w-full">
@@ -7,17 +9,11 @@ const WhatIsNew = () => {
           alt="Profile"
           className="h-9 border rounded-full"
         />
-        <p className="cursor-pointer flex-1">What's new ?</p>
+        <p className="ml-2 cursor-pointer flex-1 text-gray-300">Có gì mới ?</p>
       </div>
-      <button
-        className="cursor-pointer"
-        //   onClick={(e) => {
-        //     e.stopPropagation();
-        //     handleOpenPost();
-        //   }}
-      >
-        Post
-      </button>
+      <Button className="cursor-pointer bg-background text-foreground border">
+        Đăng
+      </Button>
 
       {/* {openPost && (
       <PostItem

@@ -131,3 +131,8 @@
   --breakpoint-2xl: 96rem; /* 1536px - Extra large desktop */
   --breakpoint-3xl: 120rem; /* 1920px - Ultra wide */
 }
+
+/* custom color*/
+@theme {
+  --color-text-secondary: #999999;
+}

@@ -5,9 +5,38 @@ const Home = () => {
   return (
     <div className=" w-full mx-auto justify-center">
       <Header title={"Home"} />
-      <div className="border-2">
+      <div className="border">
         <WhatIsNew />
-        <div className=" overflow-hidden rounded-2xl p-4">
+        <div className=" p-4 overflow-hidden rounded-2xl ">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Necessitatibus voluptates officia architecto excepturi obcaecati!
+          Necessitatibus eius unde quasi soluta ad esse dignissimos, laudantium
+          quam numquam sunt nulla, magnam exercitationem Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Necessitatibus voluptates officia
+          Necessitatibus voluptates officia architecto excepturi obcaecati!
+          Necessitatibus eius unde quasi soluta ad esse dignissimos, laudantium
+          quam numquam sunt nulla, magnam exercitationem Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Necessitatibus voluptates officia
+          architecto excepturi obcaecati! Necessitatibus voluptates officia
+          architecto excepturi obcaecati! Necessitatibus eius unde quasi soluta
+          ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
+          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Necessitatibus voluptates officia architecto excepturi
+          obcaecati! Necessitatibus voluptates officia architecto excepturi
+          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
+          laudantium quam numquam sunt nulla, magnam exercitationem Lorem ipsum
+          dolor sit amet consectetur adipisicing elit. Necessitatibus voluptates
+          officia architecto excepturi obcaecati! Necessitatibus voluptates
+          officia architecto excepturi obcaecati! Necessitatibus eius unde quasi
+          soluta ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
+          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Necessitatibus voluptates officia architecto excepturi
+          obcaecati! architecto excepturi obcaecati! Necessitatibus eius unde
+          quasi soluta ad esse dignissimos, laudantium quam numquam sunt nulla,
+          magnam exercitationem Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Necessitatibus voluptates officia architecto
+          excepturi obcaecati! Necessitatibus eius unde quasi soluta ad esse
+          dignissimos, laudantium quam numquam sunt nulla, magnam exercitationem
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Necessitatibus voluptates officia architecto excepturi obcaecati!
           Necessitatibus eius unde quasi soluta ad esse dignissimos, laudantium
@@ -36,17 +65,7 @@ const Home = () => {
           dolor sit amet consectetur adipisicing elit. Necessitatibus voluptates
           officia architecto excepturi obcaecati! Necessitatibus eius unde quasi
           soluta ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
-          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Necessitatibus voluptates officia architecto excepturi
-          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
-          laudantium quam numquam sunt nulla, magnam exercitationem Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Necessitatibus voluptates
-          officia architecto excepturi obcaecati! Necessitatibus eius unde quasi
-          soluta ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
-          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Necessitatibus voluptates officia architecto excepturi
-          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
-          laudantium quam numquam sunt nulla, magnam exercitationem. Dicta.
+          exercitationem. Dicta.
         </div>
       </div>
     </div>
