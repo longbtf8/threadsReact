@@ -1,86 +1,52 @@
 import Header from "@/components/Header";
+import WhatIsNew from "./WhatIsNew";
 
 const Home = () => {
   return (
-    <div className="overflow-x-hidden">
-      <div className=" w-full mx-auto justify-center">
-        <Header title={"Home"} />
-
-        <div className="pt-15 flex justify-center pl-4 pr-3 w-full md:max-w-[639px]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
-          necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione
-          nostrum eos expedita. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque ratione nostrum eos expedita. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Placeat numquam ipsum maiores
-          consequuntur magnam velit repellat. Omnis, necessitatibus fuga. Id
-          numquam tempora quia minus ipsam atque ratione nostrum eos expedita.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
-          necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione
-          nostrum eos expedita. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque ratione nostrum eos expedita. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Placeat numquam ipsum maiores
-          consequuntur magnam velit repellat. Omnis, necessitatibus fuga. Id
-          numquam tempora quia minus ipsam atque ratione nostrum eos expedita.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
-          necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione
-          nostrum eos expedita. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque rati Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque ratione nostrum eos expedita. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Placeat numquam ipsum maiores
-          consequuntur magnam velit repellat. Omnis, necessitatibus fuga. Id
-          numquam tempora quia minus ipsam atque ratione nostrum eos expedita.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
-          necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione
-          nostrum eos expedita. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque ratione nostrum eos expedita. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Placeat numquam ipsum maiores
-          consequuntur magnam velit repellat. Omnis, necessitatibus fuga. Id
-          numquam tempora quia minus ipsam atque ratione nostrum eos expedita.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
-          necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione
-          nostrum eos expedita. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque ratione nostrum eos expedita. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Placeat numquam ipsum maiores
-          consequuntur magnam velit repellat. Omnis, necessitatibus fuga. Id
-          numquam tempora quia minus ipsam atque ratione nostrum eos expedita.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
-          necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione
-          nostrum eos expedita. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque ratione nostrum eos expedita. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Placeat numquam ipsum maiores
-          consequuntur magnam velit repellat. Omnis, necessitatibus fuga. Id
-          numquam tempora quia minus ipsam atque ratione nostrum eos expedita.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          numquam ipsum maiores consequuntur magnam velit repellat. Omnis,
-          necessitatibus fuga. Id numquam tempora quia minus ipsam atque ratione
-          nostrum eos expedita. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Placeat numquam ipsum maiores consequuntur magnam
-          velit repellat. Omnis, necessitatibus fuga. Id numquam tempora quia
-          minus ipsam atque ratione nostrum eos expedita. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Placeat numquam ipsum maiores
-          consequuntur magnam velit repellat. Omnis, necessitatibus fuga. Id
-          numquam tempora quia minus ipsam atque ratione nostrum eos
-          expedita.one nostrum eos expedita.
+    <div className=" w-full mx-auto justify-center">
+      <Header title={"Home"} />
+      <div className="border-2">
+        <WhatIsNew />
+        <div className=" overflow-hidden rounded-2xl p-4">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Necessitatibus voluptates officia architecto excepturi obcaecati!
+          Necessitatibus eius unde quasi soluta ad esse dignissimos, laudantium
+          quam numquam sunt nulla, magnam exercitationem Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Necessitatibus voluptates officia
+          architecto excepturi obcaecati! Necessitatibus eius unde quasi soluta
+          ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
+          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Necessitatibus voluptates officia architecto excepturi
+          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
+          laudantium quam numquam sunt nulla, magnam exercitationem Lorem ipsum
+          dolor sit amet consectetur adipisicing elit. Necessitatibus voluptates
+          officia architecto excepturi obcaecati! Necessitatibus eius unde quasi
+          soluta ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
+          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Necessitatibus voluptates officia architecto excepturi
+          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
+          laudantium quam numquam sunt nulla, magnam exercitationem Lorem ipsum
+          dolor sit amet consectetur adipisicing elit. Necessitatibus voluptates
+          officia architecto excepturi obcaecati! Necessitatibus eius unde quasi
+          soluta ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
+          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Necessitatibus voluptates officia architecto excepturi
+          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
+          laudantium quam numquam sunt nulla, magnam exercitationem Lorem ipsum
+          dolor sit amet consectetur adipisicing elit. Necessitatibus voluptates
+          officia architecto excepturi obcaecati! Necessitatibus eius unde quasi
+          soluta ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
+          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Necessitatibus voluptates officia architecto excepturi
+          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
+          laudantium quam numquam sunt nulla, magnam exercitationem Lorem ipsum
+          dolor sit amet consectetur adipisicing elit. Necessitatibus voluptates
+          officia architecto excepturi obcaecati! Necessitatibus eius unde quasi
+          soluta ad esse dignissimos, laudantium quam numquam sunt nulla, magnam
+          exercitationem Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Necessitatibus voluptates officia architecto excepturi
+          obcaecati! Necessitatibus eius unde quasi soluta ad esse dignissimos,
+          laudantium quam numquam sunt nulla, magnam exercitationem. Dicta.
         </div>
       </div>
     </div>
