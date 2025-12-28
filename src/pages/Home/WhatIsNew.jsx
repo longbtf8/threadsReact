@@ -7,7 +7,7 @@ const WhatIsNew = () => {
         <img
           src="./placeholder.avif"
           alt="Profile"
-          className="h-9 border rounded-full"
+          className="h-9 w-9 border rounded-full"
         />
         <p className="ml-2 cursor-pointer flex-1 text-gray-300">Có gì mới ?</p>
       </div>
