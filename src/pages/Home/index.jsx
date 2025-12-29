@@ -11,7 +11,7 @@ const Home = () => {
         <WhatIsNew />
         <NavFirstHome />
 
-        <div className=" p-4 overflow-hidden rounded-2xl h-screen ">
+        <div className=" p-4 overflow-hidden rounded-2xl min-h-screen">
           <div>
             <PostCard />
           </div>
