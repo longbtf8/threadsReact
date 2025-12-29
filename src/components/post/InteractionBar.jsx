@@ -2,7 +2,7 @@ import { HeartIcon, MessageCircle, Repeat, Send } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useState } from "react";
 import HandleRepeat from "./interact/HandleRepeat";
-import HandleSend from "./interact/HandleShare";
+import HandleSend from "./interact/HandleSend";
 
 const InteractionBar = ({ toggleComment, setToggleComment }) => {
   const [toggleRepeat, setToggleRepeat] = useState(false);
@@ -15,7 +15,7 @@ const InteractionBar = ({ toggleComment, setToggleComment }) => {
         className=" cursor-pointer data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-red-500"
       >
         <HeartIcon />
-        Heart
+        10
       </ToggleGroupItem>
 
       {/* Comment */}
@@ -30,7 +30,7 @@ const InteractionBar = ({ toggleComment, setToggleComment }) => {
         }}
       >
         <MessageCircle />
-        Comment
+        20
       </ToggleGroupItem>
 
       {/* repeat */}
@@ -48,7 +48,7 @@ const InteractionBar = ({ toggleComment, setToggleComment }) => {
           }}
         >
           <Repeat />
-          Repeat
+          10
         </ToggleGroupItem>
 
         <HandleRepeat

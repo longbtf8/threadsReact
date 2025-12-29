@@ -1,5 +1,4 @@
-import { ArrowUpIcon, CircleEllipsis, Menu } from "lucide-react";
-import { Button } from "../ui/button";
+import { CircleEllipsis, Menu } from "lucide-react";
 
 const Header = ({ title }) => {
   return (

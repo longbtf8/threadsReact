@@ -5,9 +5,9 @@ import NavFirstHome from "./NavFirstHome";
 
 const Home = () => {
   return (
-    <div className=" w-full mx-auto justify-center">
+    <div className="w-full mx-auto ">
       <Header title={"Home"} />
-      <div className="md:border ">
+      <div className="md:border">
         <WhatIsNew />
         <NavFirstHome />
 

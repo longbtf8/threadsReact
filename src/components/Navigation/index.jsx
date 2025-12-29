@@ -52,7 +52,7 @@ const Navigation = () => {
         </ul>
 
         {/* nav main */}
-        <ul className="flex md:flex-col  justify-around md:w-auto items-center w-full h-full md:h-auto md:gap-y-0.5">
+        <ul className="flex md:flex-col  justify-around md:w-auto items-center w-full h-full md:h-auto md:gap-y-2">
           {items.map((item, index) => {
             const Icon = item.icon;
             return (
