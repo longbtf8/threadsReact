@@ -1,18 +1,19 @@
 import AuthCard from "@/components/Auth/AuthCard";
-import ModelSignInUp from "@/components/model/modelSignInSignUp";
+import ModalSignInUp from "@/components/modalSignInUp/modalSignInSignUp";
+import ModelSignInUp from "@/components/modalSignInUp/modalSignInSignUp";
 import Navigation from "@/components/Navigation";
-import { closeSignInUp } from "@/features/ui/modelSignInUpSlice";
+import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { Outlet } from "react-router";
 
 const DefaultLayout = () => {
-  const isOpenModelSignInUp = useSelector(
-    (state) => state.modelSignInUp.isModelOpen
+  const isOpenModalSignInUp = useSelector(
+    (state) => state.modalSignInUp.isModalOpen
   );
   const dispatch = useDispatch();
-  const handleCloseModelSignInUp = () => {
+  const handleCloseModalSignInUp = () => {
     dispatch(closeSignInUp());
   };
   return (
@@ -40,10 +41,10 @@ const DefaultLayout = () => {
           {/* Cột phải - luôn ở cuối */}
           <div className="min-w-19 shrink-0  hidden md:block"></div>
         </div>
-        <ModelSignInUp
-          modalIsOpen={isOpenModelSignInUp}
+        <ModalSignInUp
+          modalIsOpen={isOpenModalSignInUp}
           closeModal={() => {
-            handleCloseModelSignInUp();
+            handleCloseModalSignInUp();
           }}
         />
       </div>

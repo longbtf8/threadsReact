@@ -1,23 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  isModelOpen: false,
+  isModalOpen: false,
+  modalType: "default",
 };
 export const modelSignInUpSlice = createSlice({
-  name: "modelSignInUp",
+  name: "modalSignInUp",
   initialState,
   reducers: {
-    openSignInUp: (state) => {
-      state.isModelOpen = true;
+    openSignInUp: (state, action) => {
+      state.isModalOpen = true;
+      state.modalType = action.payload || "default";
     },
     closeSignInUp: (state) => {
-      state.isModelOpen = false;
+      state.isModalOpen = false;
+      state.modalType = "default";
     },
     toggleSignInUp: (state) => {
-      state.isModelOpen = !state.isModelOpen;
+      state.isModalOpen = !state.isModalOpen;
     },
   },
 });
 export const { openSignInUp, closeSignInUp, toggleSignInUp } =
   modelSignInUpSlice.actions;
 export default modelSignInUpSlice.reducer;
-console.log(modelSignInUpSlice);

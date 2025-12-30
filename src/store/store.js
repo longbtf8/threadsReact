@@ -1,8 +1,8 @@
-import { modelSignInUpSlice } from "@/features/ui/modelSignInUpSlice";
+import { modelSignInUpSlice } from "@/features/modalSignInUp/modalSignInUpSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
-    modelSignInUp: modelSignInUpSlice.reducer,
+    modalSignInUp: modelSignInUpSlice.reducer,
   },
 });

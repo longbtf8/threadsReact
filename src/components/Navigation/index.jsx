@@ -1,4 +1,4 @@
-import { openSignInUp } from "@/features/ui/modelSignInUpSlice";
+import { openSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 import { House, Search, Heart, Plus, Menu, Pin, UserRound } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router";
@@ -34,6 +34,7 @@ const itemsSetting = [
   {
     path: "/pin",
     icon: Pin,
+    protected: true,
   },
   {
     path: "/setting",
@@ -50,7 +51,11 @@ const Navigation = () => {
     if (item.protected) {
       // ngăn chuyển trang
       e.preventDefault();
-      dispatch(openSignInUp());
+      if (item.path === "/plus") {
+        dispatch(openSignInUp("post"));
+      } else {
+        dispatch(openSignInUp());
+      }
     }
   };
   return (
@@ -108,6 +113,9 @@ const Navigation = () => {
                     }
                     hover:bg-gray-200 rounded-xl transition duration-300`
                   }
+                  onClick={(e) => {
+                    handleNavClick(e, item);
+                  }}
                 >
                   <Icon className="size-6" />
                 </NavLink>
