@@ -1,3 +1,5 @@
+import Modal from "react-modal";
+
 const ModelSignInUp = ({ modalIsOpen, closeModal }) => {
   return (
     <Modal isOpen={modalIsOpen} contentLabel="Example Modal">

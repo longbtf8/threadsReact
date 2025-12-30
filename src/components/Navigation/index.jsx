@@ -1,4 +1,6 @@
+import { openSignInUp } from "@/features/ui/modelSignInUpSlice";
 import { House, Search, Heart, Plus, Menu, Pin, UserRound } from "lucide-react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router";
 
 const items = [
@@ -14,14 +16,17 @@ const items = [
     path: "/plus",
     icon: Plus,
     background: true,
+    protected: true,
   },
   {
     path: "/heart",
     icon: Heart,
+    protected: true,
   },
   {
     path: "/user",
     icon: UserRound,
+    protected: true,
   },
 ];
 
@@ -37,8 +42,19 @@ const itemsSetting = [
 ];
 
 const Navigation = () => {
+  // const modelSignInUp = useSelector((state) => {
+  //   return state.modelSignInUp.isModelOpen;
+  // });
+  const dispatch = useDispatch();
+  const handleNavClick = (e, item) => {
+    if (item.protected) {
+      // ngăn chuyển trang
+      e.preventDefault();
+      dispatch(openSignInUp());
+    }
+  };
   return (
-    <div className="fixed z-99 left-0 bottom-0 md:top-0  bg-white w-full md:w-[76px]">
+    <div className="fixed z-99 left-0 bottom-0 md:top-0  bg-white w-full md:w-19">
       <nav className="flex md:flex-col md:h-screen  md:justify-between items-center md:p-4 p-3 w-full h-16">
         {/* Logo */}
         <ul className="hidden md:block">
@@ -67,6 +83,9 @@ const Navigation = () => {
                     } ${isActive ? `text-black` : "text-gray-400 "}
                     hover:bg-gray-200 transition duration-300`
                   }
+                  onClick={(e) => {
+                    handleNavClick(e, item);
+                  }}
                 >
                   <Icon className="size-6 " strokeWidth={3} />
                 </NavLink>

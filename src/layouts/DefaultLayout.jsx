@@ -1,12 +1,20 @@
 import AuthCard from "@/components/Auth/AuthCard";
+import ModelSignInUp from "@/components/model/modelSignInSignUp";
 import Navigation from "@/components/Navigation";
-import Home from "@/pages/Home";
-import Search from "@/pages/Search"; // Giả sử bạn có trang này
-import { HeartOff } from "lucide-react";
-// import Profile from "@/pages/Profile"; // Giả sử bạn có trang này
+import { closeSignInUp } from "@/features/ui/modelSignInUpSlice";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import { Outlet } from "react-router";
 
 const DefaultLayout = () => {
+  const isOpenModelSignInUp = useSelector(
+    (state) => state.modelSignInUp.isModelOpen
+  );
+  const dispatch = useDispatch();
+  const handleCloseModelSignInUp = () => {
+    dispatch(closeSignInUp());
+  };
   return (
     <>
       <Navigation />
@@ -32,6 +40,12 @@ const DefaultLayout = () => {
           {/* Cột phải - luôn ở cuối */}
           <div className="min-w-19 shrink-0  hidden md:block"></div>
         </div>
+        <ModelSignInUp
+          modalIsOpen={isOpenModelSignInUp}
+          closeModal={() => {
+            handleCloseModelSignInUp();
+          }}
+        />
       </div>
     </>
   );

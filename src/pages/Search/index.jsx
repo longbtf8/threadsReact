@@ -14,7 +14,7 @@ const Search = () => {
     gap: 16,
     direction: "horizontal",
   });
-  console.log(getItemProps, getHandleProps, containerRef);
+
   return (
     <div ref={containerRef} className="flex gap-4">
       {items.map((item) => (
