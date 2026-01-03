@@ -22,7 +22,7 @@ const AuthCard = () => {
         </div>
       </div>
       <p className="mt-6 text-center text-gray-400">
-        <Link href="#">Đăng nhập bằng tên người dùng</Link>
+        <Link to={"/login"}>Đăng nhập bằng tên người dùng</Link>
       </p>
     </div>
   );

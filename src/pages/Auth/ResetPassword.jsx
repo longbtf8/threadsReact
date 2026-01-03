@@ -1,7 +1,7 @@
 import { ChevronRight, Minus } from "lucide-react";
 import { useForm } from "react-hook-form";
 
-function Register() {
+function ResetPassword() {
   const {
     register,
     handleSubmit,
@@ -10,39 +10,25 @@ function Register() {
   } = useForm();
   return (
     <div className="w-104.5 h-113.75 p-6 mb-13 mt-12. bg-transparent text-[16px]   ">
-      <h1 className="text-center font-semibold mb-4">
-        Đăng kí tài khoản Threads
-      </h1>
+      <h1 className="text-center font-semibold mb-4">Tạo mật khẩu mới </h1>
       <div>
         <form>
           <input
             type="text"
-            {...register("username")}
-            className="border p-4  w-full rounded-2xl h-13.75 bg-gray-100 mb-2"
-            placeholder="Tên hiển thị"
-          />
-          <input
-            type="text"
-            {...register("email")}
-            className="border p-4  w-full rounded-2xl h-13.75 bg-gray-100 mb-2"
-            placeholder="Nhập Email của bạn"
-          />{" "}
-          <input
-            type="text"
             {...register("password")}
             className="border p-4  w-full rounded-2xl h-13.75 bg-gray-100 mb-2"
-            placeholder="Nhập mật khẩu của bạn"
-          />
+            placeholder="Mật khẩu mới"
+          />{" "}
           <input
             type="text"
             {...register("confirmPassword")}
             className="border p-4  w-full rounded-2xl h-13.75 bg-gray-100 mb-2"
-            placeholder="Xác nhận mật khẩu của bạn"
+            placeholder="Xác nhận mật khẩu"
           />
           <input
             type="submit"
             className="border p-4  w-full rounded-2xl h-13.75 bg-black mb-2s text-white"
-            value="Đăng ký"
+            value="Xác nhận"
           />
         </form>
         <div className="text-center mt-3 text-gray-400">
@@ -78,4 +64,4 @@ function Register() {
     </div>
   );
 }
-export default Register;
+export default ResetPassword;

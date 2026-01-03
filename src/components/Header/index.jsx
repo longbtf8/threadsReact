@@ -1,4 +1,6 @@
 import { CircleEllipsis, Menu } from "lucide-react";
+import { Link } from "react-router";
+import { Button } from "../ui/button";
 
 const Header = ({ title }) => {
   return (
@@ -30,9 +32,7 @@ const Header = ({ title }) => {
           </div>
         </div>
       </div>
-      {/* <div className="absolute top-5 right-4">
-        <Button className="h-9">Đăng Nhập</Button>
-      </div> */}
+
       <div className="absolute top-5 right-4 md:hidden">
         <Menu />
       </div>

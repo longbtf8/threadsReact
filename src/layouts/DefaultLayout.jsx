@@ -2,11 +2,12 @@ import AuthCard from "@/components/Auth/AuthCard";
 import ModalSignInUp from "@/components/modalSignInUp/modalSignInSignUp";
 import ModelSignInUp from "@/components/modalSignInUp/modalSignInSignUp";
 import Navigation from "@/components/Navigation";
+import { Button } from "@/components/ui/button";
 import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 
 const DefaultLayout = () => {
   const isOpenModalSignInUp = useSelector(
@@ -41,6 +42,14 @@ const DefaultLayout = () => {
           {/* Cột phải - luôn ở cuối */}
           <div className="min-w-19 shrink-0  hidden md:block"></div>
         </div>
+
+        {/* button login */}
+        <div className="fixed z-99 top-5 right-4 ">
+          <Link to={"/login"}>
+            <Button className="h-9 cursor-pointer">Đăng Nhập</Button>
+          </Link>
+        </div>
+
         <ModalSignInUp
           modalIsOpen={isOpenModalSignInUp}
           closeModal={() => {
