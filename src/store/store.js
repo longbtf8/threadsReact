@@ -1,16 +1,14 @@
-import reducer, {
-  modelSignInUpSlice,
-} from "@/features/modalSignInUp/modalSignInUpSlice";
-import { loginApi } from "@/services/Auth/loginApi";
+import { modelSignInUpSlice } from "@/features/modalSignInUp/modalSignInUpSlice";
+import { authApi } from "@/services/Auth/authApi";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
     modalSignInUp: modelSignInUpSlice.reducer,
-    [loginApi.reducerPath]: reducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
-    loginApi.middleware,
+    authApi.middleware,
   ],
 });

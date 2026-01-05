@@ -1,23 +1,32 @@
-import { ChevronRight, Minus } from "lucide-react";
+import { ChevronRight, Loader, Minus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useEffect } from "react";
-import { useLoginMutation } from "@/services/Auth/loginApi";
+import { useGetUserInfoQuery, useLoginMutation } from "@/services/Auth/authApi";
+import { Link, Navigate, useNavigate } from "react-router";
 
 const schema = zod.object({
-  login: zod.string().min(11, "Vui lòng nhập tên người dùng"), // Nên thêm min(1) để bắt buộc nhập
-  password: zod.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự"),
+  login: zod.string().trim().min(1, "Vui lòng nhập tên tài khoản"), // Nên thêm min(1) để bắt buộc nhập
+  password: zod
+    .string()
+    .trim()
+    .min(1, "Vui lòng nhập mật khẩu")
+    .min(6, "Mật khẩu phải có từ 6 ký tự"),
 });
+
 function Login() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitted },
   } = useForm({
     resolver: zodResolver(schema),
   });
+
+  // validate
   useEffect(() => {
     const isError = Object.values(errors);
 
@@ -25,26 +34,53 @@ function Login() {
       const firstError = isError[0]?.message;
       toast(firstError, {
         position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        autoClose: 3000,
         theme: "dark",
-        transition: Bounce,
         className: "!w-fit",
       });
     }
   }, [errors, isSubmitted]);
+  const [login, { isLoading, isSuccess, error, data }] = useLoginMutation();
+  // check login backend
+  console.log(error);
+  useEffect(() => {
+    if (error?.name === "TypeError") {
+      toast("Tài khoản không tồn tại", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
+    }
+  }, [error?.name]);
 
-  console.log(errors);
-  const [login, data] = useLoginMutation();
-  const submit = (data) => {
-    console.log(data);
-    login(data);
+  const navigate = useNavigate();
+  // lưu vào localstorage
+  useEffect(() => {
+    if (isSuccess) {
+      reset();
+      toast("Đăng nhập thành công", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
+      const { access_token, refresh_token } = data;
+      localStorage.setItem("accessToken", access_token);
+      localStorage.setItem("refreshToken", refresh_token);
+      navigate("/");
+    }
+  }, [data, isSuccess, navigate, reset]);
+
+  const submit = (fromData) => {
+    console.log(fromData);
+    login(fromData);
   };
-  console.log(data);
+  const currentUser = useGetUserInfoQuery();
+  if (currentUser.isSuccess) {
+    return <Navigate to={"/"} replace={true} />;
+  }
+
   return (
     <div className="w-104.5 h-113.75 p-6 mb-13 mt-12.5 bg-transparent text-[16px]   ">
       <h1 className="text-center font-semibold mb-4">
@@ -58,25 +94,37 @@ function Login() {
             placeholder="Tên người dùng, số điện thoại hoặc email"
           />
           <input
+            type="password"
             {...register("password")}
             className="border p-4  w-full rounded-2xl h-13.75 bg-gray-100 mb-2"
             placeholder="Mật khẩu"
           />
-          <input
+
+          <button
             type="submit"
-            className="border p-4  w-full rounded-2xl h-13.75 bg-black mb-2s text-white cursor-pointer"
-            value="Đăng nhập"
-          />
+            className="border p-4  w-full rounded-2xl h-13.75 bg-black mb-2s text-white cursor-pointer flex justify-center items-center"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Loader className="animate-spin" />
+            ) : (
+              <span>Đăng nhập</span>
+            )}
+          </button>
         </form>
         <div className="text-center mt-3 text-gray-400">
-          <a href="#">Quên Mật Khẩu ?</a>
-          <div className="flex gap-1 justify-center items-center my-5">
+          <Link to="/forgotPassword">Quên Mật Khẩu ?</Link>
+          <div className="flex gap-1 justify-center items-center my-2">
             {" "}
             <Minus />
             hoặc <Minus />
           </div>
+          <Link to="/register" className="text-black">
+            Bạn chưa có tài khoản?
+            <span className="font-semibold"> Đăng ký</span>
+          </Link>
         </div>
-        <div className=" flex items-center gap-x-2 bg-background rounded-2xl border p-5 cursor-pointer">
+        <div className=" flex items-center gap-x-2 bg-background rounded-2xl border p-5 cursor-pointer mt-5">
           <div className="mr-1">
             {" "}
             <img

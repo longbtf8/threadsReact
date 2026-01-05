@@ -9,6 +9,7 @@ import ResetPassword from "./pages/Auth/ResetPassword";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
+import User from "./pages/User";
 
 const routes = [
   {
@@ -16,6 +17,7 @@ const routes = [
     children: [
       { path: paths.home, component: Home },
       { path: paths.search, component: Search },
+      { path: paths.user, component: User },
     ],
   },
   {

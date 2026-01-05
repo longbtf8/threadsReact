@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "./store/store";
 import { Bounce, ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById("root")).render(
       theme="light"
       transition={Bounce}
     />
+    <Toaster />
   </ReduxProvider>
   // </StrictMode>
 );

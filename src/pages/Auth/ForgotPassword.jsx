@@ -1,32 +1,93 @@
-import { ChevronRight, Minus } from "lucide-react";
+import { ChevronRight, Loader, Minus } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
+import { useForgotPasswordMutation } from "@/services/Auth/authApi";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
+const schema = zod.object({
+  email: zod.email("Vui lòng nhập đúng định dạng email"),
+});
 function ForgotPassword() {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  console.log(errors);
+  const requestForm = (email) => {
+    forgotPassword(email);
+  };
+
+  const [forgotPassword, { isLoading, isError, isSuccess }] =
+    useForgotPasswordMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      reset();
+      toast("Đã gửi tới email ", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
+    }
+  }, [isSuccess, reset]);
+  useEffect(() => {
+    if (isError) {
+      toast("Vui lòng thử lại sau ", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
+    }
+  });
   return (
     <div className="w-104.5 h-113.75 p-6 mb-13 mt-12. bg-transparent text-[16px]   ">
-      <h1 className="text-center font-semibold mb-4">
+      <h1 className="text-center font-semibold mb-2">
         Nhập email của bạn để nhận liên kết đặt lại mật khẩu
       </h1>
+      {/* Nếu thành công  */}
+      <div className="h-5 mb-2">
+        {isSuccess && (
+          <div>
+            <p className="text-green-700 text-sm ">
+              Liên kết đặt lại mật khẩu đã được gửi tới email của bạn
+            </p>
+          </div>
+        )}
+      </div>
       <div>
-        <form>
+        <form onSubmit={handleSubmit(requestForm)}>
           <input
             type="text"
             {...register("email")}
             className="border p-4  w-full rounded-2xl h-13.75 bg-gray-100 mb-2"
             placeholder="Nhập email"
           />
+          <div className="ml-2 h-3 flex items-center mb-2">
+            {errors.email && (
+              <p className="text-red-500 text-sm ml-2">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
 
-          <input
+          <button
             type="submit"
-            className="border p-4  w-full rounded-2xl h-13.75 bg-black mb-2s text-white"
-            value="Gửi yêu cầu"
-          />
+            className="border p-4  w-full rounded-2xl h-13.75 bg-black mb-2s text-white cursor-pointer flex justify-center items-center"
+          >
+            {isLoading ? (
+              <Loader className="animate-spin" />
+            ) : (
+              <span>Đặt lại mật khẩu</span>
+            )}
+          </button>
         </form>
         <div className="text-center mt-3 text-gray-400">
           {/* <a href="#">Quên Mật Khẩu ?</a> */}

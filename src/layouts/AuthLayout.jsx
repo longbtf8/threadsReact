@@ -6,7 +6,7 @@ const AuthLayout = () => {
       <img
         src="./bgLogin.webp"
         alt="backgroundLogin"
-        className="fixed top-0 object-cover h-128.75 w-full mt-[calc(100vh-940px)] -z-10  "
+        className="fixed top-0 object-cover h-128.75 w-full mt-[calc(100vh-950px)] -z-10  "
       />
       <div className="flex w-full h-full justify-center items-center mt-45">
         <Outlet />

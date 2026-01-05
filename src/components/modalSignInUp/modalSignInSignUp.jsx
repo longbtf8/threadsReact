@@ -2,6 +2,7 @@ import { InstagramLogoIcon } from "@radix-ui/react-icons";
 import { ChevronRight, SquareArrowOutUpRight, X } from "lucide-react";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
+import { Link } from "react-router";
 Modal.setAppElement("#root");
 
 const MODAL_CONFIG = {
@@ -28,7 +29,7 @@ const ModalSignInUp = ({ modalIsOpen, closeModal }) => {
       onRequestClose={closeModal}
       contentLabel="Modal SignIn"
       overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-100 bg-black/40 items-end"
-      className="outline-none bg-background md:p-4 md:rounded-2xl md:w-130 md:pt-12 ,md:pb-14 md:px-14 md:h-101.5 min-h-78 p-6 rounded-t-2xl w-full"
+      className="outline-none bg-background md:p-4 md:rounded-2xl md:w-130 md:pt-12 md:pb-14 md:px-14 md:h-110.5 min-h-80 p-6 rounded-t-2xl w-full"
     >
       <X
         size={24}
@@ -36,7 +37,7 @@ const ModalSignInUp = ({ modalIsOpen, closeModal }) => {
         className="text-gray-400 md:hidden cursor-pointer"
         onClick={closeModal}
       />
-      <div className="pb-8">
+      <div className="pb-4">
         {currentConfig.showIcon ? (
           <div className="pb-5 flex justify-center items-center w-full h-17">
             <SquareArrowOutUpRight size={48} strokeWidth={1.5} />
@@ -51,8 +52,11 @@ const ModalSignInUp = ({ modalIsOpen, closeModal }) => {
           <div className="max-w-78"> {currentConfig.content}</div>
         </p>
       </div>
-
-      <div className=" flex items-center gap-x-2 bg-background rounded-2xl border p-5 cursor-pointer">
+      <div className="flex justify-center items-center mb-2 pb-4 cursor-pointer font-semibold underline">
+        {" "}
+        <Link to={"/login"}>Đăng nhập </Link>
+      </div>
+      <div className=" flex items-center gap-x-2 bg-background rounded-2xl border p-5 cursor-pointer ">
         <div className="mr-1">
           {" "}
           <img

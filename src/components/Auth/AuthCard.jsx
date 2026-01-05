@@ -10,7 +10,6 @@ const AuthCard = () => {
       <p className="mt-3 text-gray-400 text-center">
         Xem mọi người đang nói về điều gì và tham gia cuộc trò chuyện.
       </p>
-
       <div className="mt-6 flex items-center gap-x-2 bg-background rounded-2xl">
         <div className="py-5 px-7 ">
           {" "}

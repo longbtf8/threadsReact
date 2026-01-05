@@ -1,4 +1,5 @@
 import { openSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
+import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { House, Search, Heart, Plus, Menu, Pin, UserRound } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router";
@@ -43,9 +44,7 @@ const itemsSetting = [
 ];
 
 const Navigation = () => {
-  // const modelSignInUp = useSelector((state) => {
-  //   return state.modelSignInUp.isModelOpen;
-  // });
+  const currentUser = useGetUserInfoQuery();
   const dispatch = useDispatch();
   const handleNavClick = (e, item) => {
     if (item.protected) {
@@ -89,7 +88,9 @@ const Navigation = () => {
                     hover:bg-gray-200 transition duration-300`
                   }
                   onClick={(e) => {
-                    handleNavClick(e, item);
+                    if (!currentUser.isSuccess) {
+                      handleNavClick(e, item);
+                    }
                   }}
                 >
                   <Icon className="size-6 " strokeWidth={3} />
@@ -114,7 +115,9 @@ const Navigation = () => {
                     hover:bg-gray-200 rounded-xl transition duration-300`
                   }
                   onClick={(e) => {
-                    handleNavClick(e, item);
+                    if (!currentUser.isSuccess) {
+                      handleNavClick(e, item);
+                    }
                   }}
                 >
                   <Icon className="size-6" />
