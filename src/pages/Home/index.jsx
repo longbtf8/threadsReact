@@ -2,8 +2,11 @@ import Header from "@/components/Header";
 import WhatIsNew from "./WhatIsNew";
 import PostCard from "@/components/post/PostCard";
 import NavFirstHome from "./NavFirstHome";
+import { useGetPostsFeedQuery } from "@/services/Post/authApi";
 
 const Home = () => {
+  const postPostsFeed = useGetPostsFeedQuery();
+  console.log(postPostsFeed);
   return (
     <div className="w-full mx-auto ">
       <Header title={"Home"} />
