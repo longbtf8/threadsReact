@@ -19,7 +19,7 @@ const DefaultLayout = () => {
     dispatch(closeSignInUp());
   };
   const currentUser = useGetUserInfoQuery();
-
+  console.log(currentUser);
   return (
     <>
       <Navigation />

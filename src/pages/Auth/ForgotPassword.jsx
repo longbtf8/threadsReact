@@ -19,15 +19,14 @@ function ForgotPassword() {
     resolver: zodResolver(schema),
   });
 
-  console.log(errors);
   const requestForm = (email) => {
     forgotPassword(email);
   };
 
-  const [forgotPassword, { isLoading, isError, isSuccess }] =
-    useForgotPasswordMutation();
+  const [forgotPassword, obj] = useForgotPasswordMutation();
+  console.log(obj);
   useEffect(() => {
-    if (isSuccess) {
+    if (obj.isSuccess) {
       reset();
       toast("Đã gửi tới email ", {
         position: "bottom-center",
@@ -36,17 +35,17 @@ function ForgotPassword() {
         className: "!w-fit",
       });
     }
-  }, [isSuccess, reset]);
+  }, [obj.isSuccess, reset]);
   useEffect(() => {
-    if (isError) {
-      toast("Vui lòng thử lại sau ", {
+    if (obj.isError) {
+      toast("Địa chỉ email đã chọn không hợp lệ", {
         position: "bottom-center",
         autoClose: 3000,
         theme: "dark",
         className: "!w-fit",
       });
     }
-  });
+  }, [obj.isError]);
   return (
     <div className="w-104.5 h-113.75 p-6 mb-13 mt-12. bg-transparent text-[16px]   ">
       <h1 className="text-center font-semibold mb-2">
@@ -54,7 +53,7 @@ function ForgotPassword() {
       </h1>
       {/* Nếu thành công  */}
       <div className="h-5 mb-2">
-        {isSuccess && (
+        {obj.isSuccess && (
           <div>
             <p className="text-green-700 text-sm ">
               Liên kết đặt lại mật khẩu đã được gửi tới email của bạn
@@ -81,8 +80,9 @@ function ForgotPassword() {
           <button
             type="submit"
             className="border p-4  w-full rounded-2xl h-13.75 bg-black mb-2s text-white cursor-pointer flex justify-center items-center"
+            disabled={obj.isLoading}
           >
-            {isLoading ? (
+            {obj.isLoading ? (
               <Loader className="animate-spin" />
             ) : (
               <span>Đặt lại mật khẩu</span>
