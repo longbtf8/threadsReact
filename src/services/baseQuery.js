@@ -11,9 +11,10 @@ export const axiosBaseQuery =
         params,
         headers,
       });
-      return { data: result };
+      return result;
     } catch (axiosError) {
       const err = axiosError;
+
       return {
         error: {
           status: err.response?.status,

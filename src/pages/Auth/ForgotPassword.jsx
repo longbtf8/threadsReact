@@ -7,19 +7,19 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 const schema = zod.object({
-  email: zod.email("Vui lòng nhập đúng định dạng email"),
+  email: zod.email("Email không đúng định dạng").trim(),
 });
 function ForgotPassword() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
   });
 
   const requestForm = (email) => {
+    console.log(email);
     forgotPassword(email);
   };
 
@@ -27,7 +27,6 @@ function ForgotPassword() {
   console.log(obj);
   useEffect(() => {
     if (obj.isSuccess) {
-      reset();
       toast("Đã gửi tới email ", {
         position: "bottom-center",
         autoClose: 3000,
@@ -35,7 +34,7 @@ function ForgotPassword() {
         className: "!w-fit",
       });
     }
-  }, [obj.isSuccess, reset]);
+  }, [obj.isSuccess]);
   useEffect(() => {
     if (obj.isError) {
       toast("Địa chỉ email đã chọn không hợp lệ", {

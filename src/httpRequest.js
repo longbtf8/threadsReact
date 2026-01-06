@@ -14,9 +14,6 @@ httpRequest.interceptors.request.use((config) => {
 });
 
 // response
-axios.interceptors.response.use((response) => {
-  return response.data;
-});
 
 let isRefreshing = false;
 let queueJobs = [];

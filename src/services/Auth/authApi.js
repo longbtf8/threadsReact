@@ -1,17 +1,19 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "../baseQuery";
-import ResetPassword from "@/pages/Auth/ResetPassword";
 
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: axiosBaseQuery({
     baseUrl: "https://threads.f8team.dev/api",
   }),
+  tagTypes: ["User"],
+
   endpoints: (builder) => ({
     getUserInfo: builder.query({
       query: () => ({
         url: `/auth/user`,
       }),
+      providesTags: ["User"],
     }),
     login: builder.mutation({
       query: (credentials) => ({
@@ -19,6 +21,7 @@ export const authApi = createApi({
         method: "POST",
         data: credentials,
       }),
+      invalidatesTags: ["User"],
     }),
     register: builder.mutation({
       query: (credentials) => ({
@@ -26,20 +29,22 @@ export const authApi = createApi({
         method: "POST",
         data: credentials,
       }),
+      invalidatesTags: ["User"],
     }),
     forgotPassword: builder.mutation({
-      query: (email) => ({
+      query: (data) => ({
         url: "/auth/forgot-password",
         method: "POST",
-        data: email,
+        data: data,
       }),
     }),
-    ResetPassword: builder.mutation({
+    resetPassword: builder.mutation({
       query: (credentials) => ({
         url: "/auth/reset-password",
         method: "POST",
         data: credentials,
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
