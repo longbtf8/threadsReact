@@ -76,7 +76,7 @@ function Register() {
       }
     }
   };
-
+  console.log(apiError);
   useEffect(() => {
     if (isSuccess) {
       reset();

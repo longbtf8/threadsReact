@@ -46,9 +46,9 @@ function ResetPassword() {
     };
     resetPassword(formData);
   };
-
+  console.log(error);
   useEffect(() => {
-    if (error) {
+    if (error?.data?.message === "Invalid or expired token") {
       reset();
       toast("Liên kết đã hết hạn hoặc không hợp lệ", {
         position: "bottom-center",

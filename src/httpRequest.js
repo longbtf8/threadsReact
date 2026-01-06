@@ -23,7 +23,8 @@ const sendRefreshToken = async (original, refreshToken) => {
   const response = await axios.post(`${original.baseURL}/auth/refresh`, {
     refresh_token: refreshToken,
   });
-  const { access_token, refresh_token } = response.data;
+  console.log("Refresh response:", response.data);
+  const { access_token, refresh_token } = response.data.data;
   localStorage.setItem("accessToken", access_token),
     localStorage.setItem("refreshToken", refresh_token);
 };
@@ -50,8 +51,11 @@ httpRequest.interceptors.response.use(
         queueJobs.forEach((job) => job.resolve());
         queueJobs = [];
         return Promise.reject(error);
+      } finally {
+        isRefreshing = false;
       }
     }
+    return Promise.reject(error);
   }
 );
 

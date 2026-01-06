@@ -20,7 +20,6 @@ function Login() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitted },
   } = useForm({
     resolver: zodResolver(schema),
@@ -42,9 +41,8 @@ function Login() {
   }, [errors, isSubmitted]);
   const [login, { isLoading, isSuccess, error, data }] = useLoginMutation();
   // check login backend
-  console.log(error);
   useEffect(() => {
-    if (error?.name === "TypeError") {
+    if (error?.data?.message === "Invalid credentials") {
       toast("Tài khoản không tồn tại", {
         position: "bottom-center",
         autoClose: 3000,
@@ -52,13 +50,13 @@ function Login() {
         className: "!w-fit",
       });
     }
-  }, [error?.name]);
+  }, [error?.data?.message]);
 
   const navigate = useNavigate();
+
   // lưu vào localstorage
   useEffect(() => {
     if (isSuccess) {
-      reset();
       toast("Đăng nhập thành công", {
         position: "bottom-center",
         autoClose: 3000,
@@ -70,16 +68,18 @@ function Login() {
       localStorage.setItem("refreshToken", refresh_token);
       navigate("/");
     }
-  }, [data, isSuccess, navigate, reset]);
+  }, [data, isSuccess, navigate]);
 
   const submit = (fromData) => {
     console.log(fromData);
     login(fromData);
   };
   const currentUser = useGetUserInfoQuery();
-  if (currentUser.isSuccess) {
-    return <Navigate to={"/"} replace={true} />;
-  }
+  useEffect(() => {
+    if (currentUser.isSuccess) {
+      navigate("/");
+    }
+  }, [currentUser.isSuccess, navigate]);
 
   return (
     <div className="w-104.5 h-113.75 p-6 mb-13 mt-12.5 bg-transparent text-[16px]   ">

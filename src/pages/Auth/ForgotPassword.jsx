@@ -5,6 +5,7 @@ import * as zod from "zod";
 import { useForgotPasswordMutation } from "@/services/Auth/authApi";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router";
 
 const schema = zod.object({
   email: zod.email("Email không đúng định dạng").trim(),
@@ -23,10 +24,10 @@ function ForgotPassword() {
     forgotPassword(email);
   };
 
-  const [forgotPassword, obj] = useForgotPasswordMutation();
-  console.log(obj);
+  const [forgotPassword, { isLoading, error, isSuccess, isError }] =
+    useForgotPasswordMutation();
   useEffect(() => {
-    if (obj.isSuccess) {
+    if (isSuccess) {
       toast("Đã gửi tới email ", {
         position: "bottom-center",
         autoClose: 3000,
@@ -34,9 +35,19 @@ function ForgotPassword() {
         className: "!w-fit",
       });
     }
-  }, [obj.isSuccess]);
+  }, [isSuccess]);
   useEffect(() => {
-    if (obj.isError) {
+    if (
+      isError &&
+      error?.data?.errors.email === "The selected email is invalid."
+    ) {
+      toast("Địa chỉ email đã chọn không hợp lệ", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
+    } else if (isError) {
       toast("Địa chỉ email đã chọn không hợp lệ", {
         position: "bottom-center",
         autoClose: 3000,
@@ -44,7 +55,7 @@ function ForgotPassword() {
         className: "!w-fit",
       });
     }
-  }, [obj.isError]);
+  }, [error?.data?.errors.email, isError]);
   return (
     <div className="w-104.5 h-113.75 p-6 mb-13 mt-12. bg-transparent text-[16px]   ">
       <h1 className="text-center font-semibold mb-2">
@@ -52,7 +63,7 @@ function ForgotPassword() {
       </h1>
       {/* Nếu thành công  */}
       <div className="h-5 mb-2">
-        {obj.isSuccess && (
+        {isSuccess && (
           <div>
             <p className="text-green-700 text-sm ">
               Liên kết đặt lại mật khẩu đã được gửi tới email của bạn
@@ -79,9 +90,9 @@ function ForgotPassword() {
           <button
             type="submit"
             className="border p-4  w-full rounded-2xl h-13.75 bg-black mb-2s text-white cursor-pointer flex justify-center items-center"
-            disabled={obj.isLoading}
+            disabled={isLoading}
           >
-            {obj.isLoading ? (
+            {isLoading ? (
               <Loader className="animate-spin" />
             ) : (
               <span>Đặt lại mật khẩu</span>
@@ -94,6 +105,11 @@ function ForgotPassword() {
             {" "}
             <Minus />
             hoặc <Minus />
+          </div>
+          <div className="mb-3">
+            <Link to="/login" className="text-black cursor-pointer ">
+              <span className="font-semibold underline"> Đăng Nhập</span>
+            </Link>
           </div>
         </div>
         <div className=" flex items-center gap-x-2 bg-background rounded-2xl border p-5 cursor-pointer">
