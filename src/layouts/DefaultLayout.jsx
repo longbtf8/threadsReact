@@ -36,7 +36,10 @@ const DefaultLayout = () => {
             )}
 
             {/* Page 1 */}
-            <div className="md:min-w-125 md:max-w-166 w-full shrink-0 h-full  md:overflow-y-auto md:overflow-x-hidden">
+            <div
+              id="scrollableDiv"
+              className="md:min-w-125 md:max-w-166 w-full shrink-0 h-full  md:overflow-y-auto md:overflow-x-hidden"
+            >
               <Outlet />
             </div>
 

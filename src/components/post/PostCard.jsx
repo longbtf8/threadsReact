@@ -109,7 +109,7 @@ const PostCard = ({ showCommentLine = true, content, username, date }) => {
       {/* Đường kẻ - CHỈ hiện khi cả 2 điều kiện đều true */}
       {showCommentLine && toggleComment && (
         <div
-          className="absolute top-11 left-4 w-0.5 bg-gray-200 transition-all duration-300"
+          className="absolute top-11 left-8 w-0.5 bg-gray-200 transition-all duration-300"
           style={{ height: `${calculatedLineHeight}px` }}
         />
       )}

@@ -10,18 +10,14 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [posts, setPosts] = useState([]);
-  const {
-    data: newPost,
-    currentData,
-    isLoading,
-    isSuccess,
-    isFetching,
-  } = useGetPostsFeedQuery({ type: "for_you", page: page });
-  console.log(currentData);
-  console.log(newPost);
+  const { data: newPost, isFetching } = useGetPostsFeedQuery({
+    type: "for_you",
+    page: page,
+  });
   useEffect(() => {
     if (newPost) {
       if (newPost.length == 0) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHasMore(false);
       } else {
         if (page === 1) {
@@ -45,10 +41,7 @@ const Home = () => {
         <WhatIsNew />
         <NavFirstHome />
 
-        <div
-          className=" p-4 overflow-hidden rounded-2xl min-h-screen  "
-          id="scrollableDiv"
-        >
+        <div className=" p-4 rounded-2xl min-h-screen  " id="scrollableDiv">
           <InfiniteScroll
             dataLength={posts.length}
             next={fetchMoreData}
@@ -63,8 +56,7 @@ const Home = () => {
             scrollableTarget="scrollableDiv"
           >
             {posts.map((post) => (
-              <div className="border-b mb-2" key={post.id}>
-                {" "}
+              <div className="border-b mb-2 pb-2" key={post.id}>
                 <PostCard
                   showCommentLine={true}
                   content={post.content}
