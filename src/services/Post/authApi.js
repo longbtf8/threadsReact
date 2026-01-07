@@ -2,7 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "../baseQuery";
 
 export const postApi = createApi({
-  reducerPath: "authApi",
+  reducerPath: "postApi",
   baseQuery: axiosBaseQuery({
     baseUrl: "https://threads.f8team.dev/api",
   }),
@@ -10,8 +10,13 @@ export const postApi = createApi({
 
   endpoints: (builder) => ({
     getPostsFeed: builder.query({
-      query: () => ({
-        url: `/posts/feed/`,
+      query: ({ type, page, per_page }) => ({
+        url: `/posts/feed`,
+        params: {
+          type,
+          per_page,
+          page,
+        },
       }),
       providesTags: ["post"],
     }),

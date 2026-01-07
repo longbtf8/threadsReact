@@ -4,8 +4,10 @@ import InteractionBar from "./InteractionBar";
 import Comment from "../comment";
 import { useEffect, useRef, useState } from "react";
 import { measureHeight } from "@/utils/measureHeight";
+import { formatDistanceStrict } from "date-fns";
+import { vi } from "date-fns/locale";
 
-const PostCard = ({ showCommentLine = true }) => {
+const PostCard = ({ showCommentLine = true, content, username, date }) => {
   const [toggleComment, setToggleComment] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);
   const cardRef = useRef(null);
@@ -23,7 +25,7 @@ const PostCard = ({ showCommentLine = true }) => {
   const calculatedLineHeight = cardHeight > 64 ? cardHeight - 44 * 2 - 15 : 0;
 
   return (
-    <div ref={cardRef} className="relative">
+    <div ref={cardRef} className="relative px-4 ">
       <div className="flex gap-2 items-start ">
         <div className="shrink-0 ">
           <Avatar>
@@ -41,9 +43,15 @@ const PostCard = ({ showCommentLine = true }) => {
           <div className="flex cursor-pointer">
             <div className="grow">
               <span className="hover:underline transition-all font-semibold">
-                Bùi Thành Long
+                {username}
               </span>{" "}
-              <span className="text-gray-300">2 giờ</span>{" "}
+              <span className="text-gray-300">
+                {formatDistanceStrict(new Date(date), new Date(), {
+                  addSuffix: true,
+                  locale: vi,
+                })}
+              </span>{" "}
+              {/* {console.log(date)} */}
             </div>
 
             {/* dot */}
@@ -52,18 +60,13 @@ const PostCard = ({ showCommentLine = true }) => {
             </span>
           </div>
           {/* caption */}
-          <p className="cursor-pointer">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
-            assumenda ipsam voluptates consequatur, blanditiis ea ipsum quisquam
-            cupiditate ducimus officiis pariatur magni vel fugit dignissimos
-            repudiandae perspiciatis quia magnam impedit?consequatur, blanditiis
-            ea ipsum quisquam cupiditate ducimus officiis pariatur magni vel
-            fugit dignissimos repudiandae perspiciatis quia magnam impedit?
+          <p className="cursor-pointer break-all whitespace-pre-wrap">
+            {content}
           </p>
         </div>
       </div>
       {/* Ảnh and video */}
-      <div className=" -mr-4 ">
+      {/* <div className=" -mr-4 ">
         <div className=" -ml-4 rounded-xl mt-3 flex justify-start overflow-x-auto gap-1 pr-4 cursor-grab [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <div className="w-13.75 h-auto max-h-70 shrink-0 "></div>
           <img
@@ -81,15 +84,15 @@ const PostCard = ({ showCommentLine = true }) => {
             alt="content"
             className=" h-auto max-h-70 rounded-2xl align-middle object-cover"
           />
-          {/* <iframe
+          <iframe
             src="https://www.youtube.com/embed/Jpg7yQuyjZY"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="w-full h-70 rounded-2xl aspect-video" // Thêm aspect-video để giữ tỉ lệ khung hình
-          ></iframe> */}
+          ></iframe>
         </div>
-      </div>
+      </div> */}
       <div className="ml-7.25 mt-2">
         {" "}
         <InteractionBar
