@@ -7,7 +7,15 @@ import { measureHeight } from "@/utils/measureHeight";
 import { formatDistanceStrict } from "date-fns";
 import { vi } from "date-fns/locale";
 
-const PostCard = ({ showCommentLine = true, content, username, date }) => {
+const PostCard = ({
+  showCommentLine = true,
+  content,
+  username,
+  date,
+  likesCount,
+  isLiked,
+  id,
+}) => {
   const [toggleComment, setToggleComment] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);
   const cardRef = useRef(null);
@@ -38,7 +46,7 @@ const PostCard = ({ showCommentLine = true, content, username, date }) => {
             </AvatarFallback>
           </Avatar>
         </div>
-        <div>
+        <div className="flex-1">
           {/* info */}
           <div className="flex cursor-pointer">
             <div className="grow">
@@ -55,9 +63,9 @@ const PostCard = ({ showCommentLine = true, content, username, date }) => {
             </div>
 
             {/* dot */}
-            <span>
+            <div className="flex-1 justify-end flex">
               <Ellipsis className="text-gray-400" />
-            </span>
+            </div>
           </div>
           {/* caption */}
           <p className="cursor-pointer break-all whitespace-pre-wrap">
@@ -98,6 +106,9 @@ const PostCard = ({ showCommentLine = true, content, username, date }) => {
         <InteractionBar
           toggleComment={toggleComment}
           setToggleComment={setToggleComment}
+          postId={id}
+          likesCount={likesCount}
+          isLiked={isLiked}
         />
       </div>
       {toggleComment && (

@@ -3,19 +3,43 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useState } from "react";
 import HandleRepeat from "./interact/HandleRepeat";
 import HandleSend from "./interact/HandleSend";
+import { usePostLike } from "@/hooks/usePostLike";
 
-const InteractionBar = ({ toggleComment, setToggleComment }) => {
+const InteractionBar = ({
+  toggleComment,
+  setToggleComment,
+  postId,
+  likesCount,
+  isLiked,
+}) => {
   const [toggleRepeat, setToggleRepeat] = useState(false);
   const [toggleSend, setToggleSend] = useState(false);
+
+  // sử lý like
+  const { Liked, likedCount, handleToggleLike } = usePostLike({
+    initialLikes: isLiked,
+    initialCount: likesCount,
+    id: postId,
+  });
+
   return (
-    <ToggleGroup type="multiple" variant="default" spacing={1} size="sm">
+    <ToggleGroup
+      type="multiple"
+      variant="default"
+      spacing={1}
+      size="sm"
+      value={Liked ? ["heart"] : []}
+    >
       <ToggleGroupItem
         value="heart"
         aria-label="Toggle heart"
         className=" cursor-pointer data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-red-500"
+        onClick={(e) => {
+          handleToggleLike(e);
+        }}
       >
         <HeartIcon />
-        10
+        {likedCount}
       </ToggleGroupItem>
 
       {/* Comment */}

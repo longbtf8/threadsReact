@@ -27,6 +27,7 @@ const Home = () => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newPost]);
   const fetchMoreData = () => {
     if (!isFetching) {
@@ -62,6 +63,9 @@ const Home = () => {
                   content={post.content}
                   username={post.user.username}
                   date={post.created_at}
+                  id={post.id}
+                  likesCount={post.likes_count}
+                  isLiked={post.is_liked_by_auth}
                 />
               </div>
             ))}
