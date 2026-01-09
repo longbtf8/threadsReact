@@ -9,7 +9,7 @@ const HandleRepeat = ({ isOpen, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 z-1000 border  md:absolute md:min-w-50 md:top-2 md:right-auto md:bottom-auto md:left-0 md:rounded-2xl"
+        className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 z-1000 border  md:absolute md:min-w-50 md:top-0 md:right-auto md:bottom-auto md:left-0 md:rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* core */}

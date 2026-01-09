@@ -4,6 +4,10 @@ import { useState } from "react";
 import HandleRepeat from "./interact/HandleRepeat";
 import HandleSend from "./interact/HandleSend";
 import { usePostLike } from "@/hooks/usePostLike";
+import { useGetUserInfoQuery } from "@/services/Auth/authApi";
+import ModalSignInUp from "../modalSignInUp/modalSignInSignUp";
+import { useDispatch } from "react-redux";
+import { openSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 
 const InteractionBar = ({
   toggleComment,
@@ -14,13 +18,33 @@ const InteractionBar = ({
 }) => {
   const [toggleRepeat, setToggleRepeat] = useState(false);
   const [toggleSend, setToggleSend] = useState(false);
-
+  const currentUser = useGetUserInfoQuery();
+  // console.log(currentUser);
   // sử lý like
   const { Liked, likedCount, handleToggleLike } = usePostLike({
     initialLikes: isLiked,
     initialCount: likesCount,
     id: postId,
   });
+  const dispatch = useDispatch();
+  // const handleOpenModal = (e, value) => {
+  //   if (currentUser.isError) {
+  //     e.preventDefault();
+  //     if (value) {
+  //       dispatch(openSignInUp(`${value}`));
+  //     } else {
+  //       dispatch(openSignInUp());
+  //     }
+  //   }
+  // };
+  const handleInteraction = ({ e, type = "", callback }) => {
+    e.stopPropagation();
+    if (currentUser.isError || !currentUser.data) {
+      dispatch(openSignInUp(type));
+      return;
+    }
+    callback();
+  };
 
   return (
     <ToggleGroup
@@ -35,7 +59,13 @@ const InteractionBar = ({
         aria-label="Toggle heart"
         className=" cursor-pointer data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-red-500"
         onClick={(e) => {
-          handleToggleLike(e);
+          handleInteraction({
+            e: e,
+            // type: "heart",
+            callback: () => {
+              handleToggleLike(e);
+            },
+          });
         }}
       >
         <HeartIcon />
@@ -47,10 +77,16 @@ const InteractionBar = ({
         value="comment"
         aria-label="Toggle comment"
         className={" cursor-pointer data-[state=on]:bg-transparent"}
-        onClick={() => {
-          setToggleComment(!toggleComment);
-          if (toggleRepeat) setToggleRepeat(!toggleRepeat);
-          if (toggleSend) setToggleSend(!toggleSend);
+        onClick={(e) => {
+          handleInteraction({
+            e: e,
+            type: "comment",
+            callback: () => {
+              setToggleComment(!toggleComment);
+              if (toggleRepeat) setToggleRepeat(!toggleRepeat);
+              if (toggleSend) setToggleSend(!toggleSend);
+            },
+          });
         }}
       >
         <MessageCircle />
@@ -65,10 +101,16 @@ const InteractionBar = ({
           className={
             " cursor-pointer data-[state=on]:bg-transparent data-[state=on]:*:[svg]:stroke-green-500"
           }
-          onClick={() => {
-            setToggleRepeat(!toggleRepeat);
-            if (toggleSend) setToggleSend(!toggleSend);
-            if (toggleComment) setToggleComment(!toggleComment);
+          onClick={(e) => {
+            handleInteraction({
+              e: e,
+              type: "repeat",
+              callback: () => {
+                setToggleRepeat(!toggleRepeat);
+                if (toggleSend) setToggleSend(!toggleSend);
+                if (toggleComment) setToggleComment(!toggleComment);
+              },
+            });
           }}
         >
           <Repeat />
@@ -89,10 +131,16 @@ const InteractionBar = ({
           value="send"
           aria-label="Toggle send"
           className={"data-[state=on]:bg-transparent cursor-pointer "}
-          onClick={() => {
-            setToggleSend(!toggleSend);
-            if (toggleRepeat) setToggleRepeat(!toggleRepeat);
-            if (toggleComment) setToggleComment(!toggleComment);
+          onClick={(e) => {
+            handleInteraction({
+              e: e,
+              type: "repeat",
+              callback: () => {
+                setToggleSend(!toggleSend);
+                if (toggleRepeat) setToggleRepeat(!toggleRepeat);
+                if (toggleComment) setToggleComment(!toggleComment);
+              },
+            });
           }}
         >
           <Send />
