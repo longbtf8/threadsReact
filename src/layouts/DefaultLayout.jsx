@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { Plus } from "lucide-react";
+import { createPortal } from "react-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -33,7 +34,7 @@ const DefaultLayout = () => {
             {currentUser.isSuccess ? (
               <></>
             ) : (
-              <div className="min-w-19 shrink-0  hidden lg:block"></div>
+              <div className="min-w-19  shrink-0  hidden lg:block"></div>
             )}
 
             {/* Page 1 */}
@@ -76,11 +77,14 @@ const DefaultLayout = () => {
           }}
         />
       </div>
-      <Button
-        className={`fixed right-[3%] bottom-[3%] h-17 w-20.5 cursor-pointer rounded-2xl bg-background text-(--color-icon-hover) outline outline-(--outline-primary) outline-solid hover:scale-110 max-md:hidden z-99`}
-      >
-        <Plus />
-      </Button>
+      {createPortal(
+        <Button
+          className={`fixed right-[3%] bottom-[3%] h-17 w-20.5 cursor-pointer rounded-2xl bg-background border hover:scale-110 max-md:hidden z-99 text-black hover:bg-background`}
+        >
+          <Plus />
+        </Button>,
+        document.body
+      )}
     </>
   );
 };

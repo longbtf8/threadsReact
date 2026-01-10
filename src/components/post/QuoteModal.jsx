@@ -1,45 +1,59 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+
 import {
+  ChevronRight,
   CircleEllipsis,
   FileText,
   Folders,
   Images,
   MapPin,
+  SeparatorHorizontal,
+  SlidersVertical,
   Smile,
   TextAlignStart,
+  X,
 } from "lucide-react";
+import { Button } from "../ui/button";
+import Modal from "react-modal";
 
 export function AddPost({ isOpen, onClose }) {
   const actionStyle = "cursor-pointer p-1.5 text-(--color-time)";
-  if (!isOpen) {
-    return;
-  }
 
   return (
     <>
-      {/* Overlay */}
-      {/* <div className="overlay fixed inset-0 z-100" > */}
-      {/* Container */}
-      <div className="animate-scale-from-bottom-right absolute right-6 bottom-6.5 w-123.5 overflow-auto rounded-2xl border-2 border-(--outline-primary) bg-(--bg-primary)">
-        {/* Header */}
-        <header className="flex items-center justify-between px-6 py-2">
-          <button
-            className="close-btn cursor-pointer p-1 font-bold"
-            onClick={onClose}
-          >
-            X
-          </button>
-          <p className="text-[16px] font-bold">Thread mới</p>
-          <div className="flex items-center">
-            <Folders size={34} className="p-1.5" />
-            <CircleEllipsis size={34} className="p-1.5" />
-          </div>
-        </header>
-        <Separator className="outline-[  --outline-primary]" />
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={onClose}
+        overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-100 bg-black/40 items-end"
+        className="outline-none bg-background md:p-4 md:rounded-2xl md:w-130 md:pt- md:pb-6 md:px-6 md:h-110.5 min-h-80 p-6 rounded-t-2xl w-full relative"
+      >
+        <div className="border-b -mx-6">
+          <header className="flex items-center justify-between  py-2  px-6">
+            <button
+              className="close-btn cursor-pointer p-1 font-bold"
+              onClick={onClose}
+            >
+              <X />
+            </button>
+            <p className="text-[16px] font-bold">Thread mới</p>
+            <div className="flex items-center">
+              <Folders size={34} className="p-1.5" />
+              <CircleEllipsis size={34} className="p-1.5" />
+            </div>
+          </header>
+        </div>
+
         <form>
           {/* Content Post */}
-          <div className="flex gap-3 px-6 pt-4 pb-1.25">
-            <Avatar className={`size-9`}>
-              <AvatarImage src="./placeholder.avif" className={`size-full`} />
+          <div className="flex gap-3  pt-4 pb-1.25">
+            <Avatar>
+              <AvatarImage
+                src="./placeholder.avif"
+                className="w-9 h-9  rounded-full border"
+              />
+              <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
+                Avt
+              </AvatarFallback>
             </Avatar>
             <div className="flex-1">
               <div className="flex items-center gap-1.5">
@@ -49,19 +63,12 @@ export function AddPost({ isOpen, onClose }) {
                   type="text"
                   placeholder="Thêm chủ đề"
                   className="px-0.5 py-px focus:outline-0"
-                  //   value={formData.topic_name}
-                  //   onChange={(e) =>
-                  //     handleInputChange("topic_name", e.target.value)
-                  //   }
                 />
               </div>
               <main>
                 <textarea
                   placeholder={`Có gì mới...?`}
                   className="w-full resize-none overflow-hidden focus:outline-0"
-                  //   disabled={isLoading}
-                  //   value={formData.content}
-                  //   onChange={(e) => handleInputChange("content", e.target.value)}
                 ></textarea>
               </main>
               {/* Action */}
@@ -99,8 +106,7 @@ export function AddPost({ isOpen, onClose }) {
             </Button>
           </footer>
         </form>
-      </div>
-      {/* </div> */}
+      </Modal>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { MessageSquareQuote, Repeat } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AddPost } from "../QuoteModal";
 
 // handleRepeat
 const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
@@ -15,6 +16,10 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
+  const [toggleQuote, setToggleQuote] = useState(false);
+  const handleToggleQuote = () => {
+    setToggleQuote(false);
+  };
   if (!isOpen) return null;
   return (
     <div
@@ -39,13 +44,17 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
           </div>
           <div
             className="flex items-center gap-3 w-full p-3 cursor-pointer md:hover:bg-gray-100 transition rounded-xl"
-            onClick={onClose}
+            onClick={() => {
+              setToggleQuote(true);
+              onClose();
+            }}
           >
             <span className="grow">Trích dẫn</span>
             <MessageSquareQuote size={20} />
           </div>
         </div>
       </div>
+      <AddPost isOpen={toggleQuote} onClose={handleToggleQuote} />
     </div>
   );
 };
