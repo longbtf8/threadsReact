@@ -14,8 +14,15 @@ export const postInteractions = createApi({
         url: `/posts/${id}/like`,
         method: "POST",
       }),
-      providesTags: ["post"],
+      // providesTags: ["post"],
+    }),
+    repeatPost: builder.mutation({
+      query: ({ id }) => ({
+        url: `/posts/${id}/repost`,
+        method: "POST",
+      }),
+      // providesTags: ["post"],
     }),
   }),
 });
-export const { useLikePostMutation } = postInteractions;
+export const { useLikePostMutation, useRepeatPostMutation } = postInteractions;

@@ -15,6 +15,8 @@ const PostCard = ({
   likesCount,
   isLiked,
   id,
+  isRepost,
+  repostCount,
 }) => {
   const [toggleComment, setToggleComment] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);
@@ -109,6 +111,8 @@ const PostCard = ({
           postId={id}
           likesCount={likesCount}
           isLiked={isLiked}
+          isRepost={isRepost}
+          repostCount={repostCount}
         />
       </div>
       {toggleComment && (

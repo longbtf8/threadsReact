@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 const Header = ({ title }) => {
   return (
-    <div className="sticky z-50 top-0 w-full bg-white">
+    <div className="sticky z-99 top-0 w-full bg-white">
       <div className="flex justify-center items-center h-15 ">
         <div className="flex justify-center h-full items-center w-full">
           <img

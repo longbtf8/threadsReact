@@ -1,13 +1,17 @@
 import { HeartIcon, MessageCircle, Repeat, Send } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { useState } from "react";
 import HandleRepeat from "./interact/HandleRepeat";
 import HandleSend from "./interact/HandleSend";
 import { usePostLike } from "@/hooks/usePostLike";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import ModalSignInUp from "../modalSignInUp/modalSignInSignUp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
+import {
+  closeInteraction,
+  toggleInteraction,
+} from "@/features/interaction/interactionSlice";
+import { useRepeatPost } from "@/hooks/useRepeatPost";
 
 const InteractionBar = ({
   toggleComment,
@@ -15,28 +19,30 @@ const InteractionBar = ({
   postId,
   likesCount,
   isLiked,
+  isRepost,
+  repostCount,
 }) => {
-  const [toggleRepeat, setToggleRepeat] = useState(false);
-  const [toggleSend, setToggleSend] = useState(false);
   const currentUser = useGetUserInfoQuery();
-  // console.log(currentUser);
   // sử lý like
   const { Liked, likedCount, handleToggleLike } = usePostLike({
     initialLikes: isLiked,
     initialCount: likesCount,
     id: postId,
   });
+  const { repeated, repeatCount, handleToggleRepeat } = useRepeatPost({
+    initialCount: repostCount,
+    initialRepeat: isRepost,
+    id: postId,
+  });
+
   const dispatch = useDispatch();
-  // const handleOpenModal = (e, value) => {
-  //   if (currentUser.isError) {
-  //     e.preventDefault();
-  //     if (value) {
-  //       dispatch(openSignInUp(`${value}`));
-  //     } else {
-  //       dispatch(openSignInUp());
-  //     }
-  //   }
-  // };
+
+  const { activePostId, activeType } = useSelector(
+    (state) => state.interaction
+  );
+  const isRepeatOpen = activePostId === postId && activeType === "repeat";
+  const isSendOpen = activePostId === postId && activeType === "send";
+
   const handleInteraction = ({ e, type = "", callback }) => {
     e.stopPropagation();
     if (currentUser.isError || !currentUser.data) {
@@ -45,14 +51,16 @@ const InteractionBar = ({
     }
     callback();
   };
-
+  const activeValue = [];
+  if (Liked) activeValue.push("heart");
+  if (repeated) activeValue.push("repeat");
   return (
     <ToggleGroup
       type="multiple"
       variant="default"
       spacing={1}
       size="sm"
-      value={Liked ? ["heart"] : []}
+      value={activeValue}
     >
       <ToggleGroupItem
         value="heart"
@@ -61,7 +69,7 @@ const InteractionBar = ({
         onClick={(e) => {
           handleInteraction({
             e: e,
-            // type: "heart",
+            type: "heart",
             callback: () => {
               handleToggleLike(e);
             },
@@ -83,8 +91,6 @@ const InteractionBar = ({
             type: "comment",
             callback: () => {
               setToggleComment(!toggleComment);
-              if (toggleRepeat) setToggleRepeat(!toggleRepeat);
-              if (toggleSend) setToggleSend(!toggleSend);
             },
           });
         }}
@@ -106,22 +112,21 @@ const InteractionBar = ({
               e: e,
               type: "repeat",
               callback: () => {
-                setToggleRepeat(!toggleRepeat);
-                if (toggleSend) setToggleSend(!toggleSend);
-                if (toggleComment) setToggleComment(!toggleComment);
+                dispatch(toggleInteraction({ postId, type: "repeat" }));
               },
             });
           }}
         >
           <Repeat />
-          10
+          {repeatCount}
         </ToggleGroupItem>
 
         <HandleRepeat
-          isOpen={toggleRepeat}
+          isOpen={isRepeatOpen}
           onClose={() => {
-            setToggleRepeat(false);
+            dispatch(closeInteraction());
           }}
+          handleRepost={handleToggleRepeat}
         />
       </div>
 
@@ -134,11 +139,9 @@ const InteractionBar = ({
           onClick={(e) => {
             handleInteraction({
               e: e,
-              type: "repeat",
+              type: "send",
               callback: () => {
-                setToggleSend(!toggleSend);
-                if (toggleRepeat) setToggleRepeat(!toggleRepeat);
-                if (toggleComment) setToggleComment(!toggleComment);
+                dispatch(toggleInteraction({ postId, type: "send" }));
               },
             });
           }}
@@ -148,9 +151,9 @@ const InteractionBar = ({
         </ToggleGroupItem>
 
         <HandleSend
-          isOpen={toggleSend}
+          isOpen={isSendOpen}
           onClose={() => {
-            setToggleSend(false);
+            dispatch(closeInteraction());
           }}
         />
       </div>

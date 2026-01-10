@@ -1,11 +1,24 @@
 import { CodeXml, Images, Link } from "lucide-react";
+import { useEffect } from "react";
 
 // HandleSend
 const HandleSend = ({ isOpen, onClose }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
   if (!isOpen) return null;
   return (
     <div
-      className="inset-0 bg-black/50  fixed left-0 bottom-15 z-999 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent"
+      className="inset-0 bg-black/50  fixed left-0 bottom-15 md:z-40 z-100 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent"
       onClick={onClose}
     >
       <div

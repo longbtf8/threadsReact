@@ -1,11 +1,24 @@
 import { MessageSquareQuote, Repeat } from "lucide-react";
+import { useEffect } from "react";
 
 // handleRepeat
-const HandleRepeat = ({ isOpen, onClose }) => {
+const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
   if (!isOpen) return null;
   return (
     <div
-      className="inset-0 bg-black/50  fixed left-0 bottom-15 z-999 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent"
+      className="inset-0 bg-black/50  fixed left-0 bottom-15 md:z-40 z-100 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent"
       onClick={onClose}
     >
       <div
@@ -16,7 +29,10 @@ const HandleRepeat = ({ isOpen, onClose }) => {
         <div className="bg-gray-100 rounded-2xl md:bg-transparent">
           <div
             className="flex items-center gap-3 w-full p-3 cursor-pointer border-b md:hover:bg-gray-100 transition md:border-0 rounded-xl md:p-2"
-            onClick={onClose}
+            onClick={() => {
+              handleRepost();
+              onClose();
+            }}
           >
             <span className="grow">Đăng lại</span>
             <Repeat size={20} />

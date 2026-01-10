@@ -2,9 +2,11 @@ import Header from "@/components/Header";
 import WhatIsNew from "./WhatIsNew";
 import PostCard from "@/components/post/PostCard";
 import NavFirstHome from "./NavFirstHome";
-import { useGetPostsFeedQuery } from "@/services/Post/authApi";
+import { useGetPostsFeedQuery } from "@/services/Post/postApi";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useRepeatPostMutation } from "@/services/Interactions/postInteractions";
+import { data } from "react-router";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -14,6 +16,7 @@ const Home = () => {
     type: "for_you",
     page: page,
   });
+  console.log(newPost);
   useEffect(() => {
     if (newPost) {
       if (newPost.length == 0) {
@@ -28,6 +31,8 @@ const Home = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newPost]);
+  const obj = useRepeatPostMutation();
+  console.log(obj);
   const fetchMoreData = () => {
     if (!isFetching) {
       setPage((prevPage) => prevPage + 1);
@@ -65,6 +70,8 @@ const Home = () => {
                   id={post.id}
                   likesCount={post.likes_count}
                   isLiked={post.is_liked_by_auth}
+                  isRepost={post.is_reposted_by_auth}
+                  repostCount={post.reposts_and_quotes_count}
                 />
               </div>
             ))}
