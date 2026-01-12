@@ -143,7 +143,13 @@ const InteractionBar = ({
               e: e,
               type: "send",
               callback: () => {
-                dispatch(toggleInteraction({ postId, type: "send" }));
+                dispatch(
+                  toggleInteraction({
+                    postId,
+                    type: "send",
+                    data: { username: post?.user?.username, post: post },
+                  })
+                );
               },
             });
           }}

@@ -1,5 +1,9 @@
+import copy from "copy-to-clipboard";
 import { CodeXml, Images, Link } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { CopyAsImage } from "../modalCopyAsImage";
 
 // HandleSend
 const HandleSend = ({ isOpen, onClose }) => {
@@ -15,6 +19,31 @@ const HandleSend = ({ isOpen, onClose }) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
+
+  // lấy data từ redux
+  const { activePostId, activePostData } = useSelector(
+    (state) => state.interaction
+  );
+  const username = activePostData?.username;
+  const postId = activePostId;
+  // handleCopyLink
+  const handleCopyLink = () => {
+    const url = window.location.origin + "/" + username + "/post/" + postId;
+    copy(url);
+    toast("Đã sao chép", {
+      position: "bottom-center",
+      autoClose: 3000,
+      theme: "dark",
+      className: "!w-fit",
+    });
+
+    onClose();
+  };
+
+  const [toggleModalCpImg, setToggleModalCpImg] = useState(false);
+  const handleCloseModalCpImg = () => {
+    setToggleModalCpImg(false);
+  };
   if (!isOpen) return null;
   return (
     <div
@@ -29,14 +58,18 @@ const HandleSend = ({ isOpen, onClose }) => {
         <div className="bg-gray-100 rounded-2xl md:bg-transparent">
           <div
             className="flex items-center gap-3 w-full p-3 cursor-pointer border-b md:hover:bg-gray-100 transition md:border-0 md:rounded-xl md:py-1.5"
-            onClick={onClose}
+            onClick={() => {
+              handleCopyLink();
+            }}
           >
             <span className="grow">Sao chép liên kết</span>
             <Link size={20} />
           </div>
           <div
             className="flex items-center gap-3 w-full p-3 cursor-pointer md:hover:bg-gray-100 transition md:rounded-xl md:py-1 md:border-0 border-b "
-            onClick={onClose}
+            onClick={() => {
+              setToggleModalCpImg(true);
+            }}
           >
             <span className="grow">Sao chép dưới dạng hình ảnh</span>
             <Images size={20} />
@@ -50,6 +83,12 @@ const HandleSend = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
+      <CopyAsImage
+        isOpen={toggleModalCpImg}
+        onClose={() => {
+          handleCloseModalCpImg();
+        }}
+      />
     </div>
   );
 };
