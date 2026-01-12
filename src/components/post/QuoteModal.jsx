@@ -61,7 +61,7 @@ export function AddPost({ isOpen, onClose, post }) {
         isOpen={isOpen}
         onRequestClose={onClose}
         overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-100 md:bg-black/40  "
-        className="outline-none bg-background md:p-4 md:rounded-2xl md:w-155 md:pt- md:pb-6 md:px-6 md:min-h-100.5 min-h-80 p-6 w-full relative  flex flex-col max-h-[90vh] "
+        className="outline-none bg-background md:p-4 md:rounded-2xl md:w-155 md:pt- md:pb-6 md:px-6 md:min-h-100.5 min-h-80 p-6 w-full relative  flex flex-col max-h-screen"
       >
         <div className="border-b -mx-6">
           <header className="flex items-center justify-between  py-2  px-6">
