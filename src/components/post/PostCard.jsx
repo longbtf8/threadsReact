@@ -17,7 +17,10 @@ const PostCard = ({
   id,
   isRepost,
   repostCount,
+  ToggleInteractionBar = true,
+  post,
 }) => {
+  console.log(post);
   const [toggleComment, setToggleComment] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);
   const cardRef = useRef(null);
@@ -105,15 +108,20 @@ const PostCard = ({
       </div> */}
       <div className="ml-7.25 mt-2">
         {" "}
-        <InteractionBar
-          toggleComment={toggleComment}
-          setToggleComment={setToggleComment}
-          postId={id}
-          likesCount={likesCount}
-          isLiked={isLiked}
-          isRepost={isRepost}
-          repostCount={repostCount}
-        />
+        {ToggleInteractionBar ? (
+          <InteractionBar
+            toggleComment={toggleComment}
+            setToggleComment={setToggleComment}
+            postId={id}
+            likesCount={likesCount}
+            isLiked={isLiked}
+            isRepost={isRepost}
+            repostCount={repostCount}
+            post={post}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       {toggleComment && (
         <div>

@@ -6,7 +6,6 @@ import { useGetPostsFeedQuery } from "@/services/Post/postApi";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRepeatPostMutation } from "@/services/Interactions/postInteractions";
-import { data } from "react-router";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -72,6 +71,7 @@ const Home = () => {
                   isLiked={post.is_liked_by_auth}
                   isRepost={post.is_reposted_by_auth}
                   repostCount={post.reposts_and_quotes_count}
+                  post={post}
                 />
               </div>
             ))}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { AddPost } from "../QuoteModal";
 
 // handleRepeat
-const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
+const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e) => {
@@ -16,11 +16,14 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
+
   const [toggleQuote, setToggleQuote] = useState(false);
   const handleToggleQuote = () => {
     setToggleQuote(false);
+    onClose();
   };
-  if (!isOpen) return null;
+
+  if (!isOpen && !toggleQuote) return null;
   return (
     <div
       className="inset-0 bg-black/50  fixed left-0 bottom-15 md:z-40 z-100 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent"
@@ -46,7 +49,6 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
             className="flex items-center gap-3 w-full p-3 cursor-pointer md:hover:bg-gray-100 transition rounded-xl"
             onClick={() => {
               setToggleQuote(true);
-              onClose();
             }}
           >
             <span className="grow">Trích dẫn</span>
@@ -54,7 +56,7 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost }) => {
           </div>
         </div>
       </div>
-      <AddPost isOpen={toggleQuote} onClose={handleToggleQuote} />
+      <AddPost isOpen={toggleQuote} onClose={handleToggleQuote} post={post} />
     </div>
   );
 };

@@ -21,6 +21,7 @@ const InteractionBar = ({
   isLiked,
   isRepost,
   repostCount,
+  post,
 }) => {
   const currentUser = useGetUserInfoQuery();
   // sử lý like
@@ -127,6 +128,7 @@ const InteractionBar = ({
             dispatch(closeInteraction());
           }}
           handleRepost={handleToggleRepeat}
+          post={post}
         />
       </div>
 

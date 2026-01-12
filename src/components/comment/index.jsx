@@ -1,8 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Maximize2 } from "lucide-react";
 import { Button } from "../ui/button";
+import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 
 const Comment = () => {
+  const { data: currentUser } = useGetUserInfoQuery();
   return (
     <div className=" flex pt-2 gap-2.5">
       <Avatar>
@@ -18,7 +20,7 @@ const Comment = () => {
       <div className="grow">
         <div className="flex gap-2 items-start justify-start">
           <p className="font-semibold cursor-pointer hover:underline">
-            Bùi Thành Long
+            {currentUser.name}
           </p>{" "}
           <span className="text-gray-400">&gt;</span>
           <input
