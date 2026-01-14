@@ -19,6 +19,8 @@ const PostCard = ({
   repostCount,
   ToggleInteractionBar = true,
   post,
+  className,
+  ToggleMenu, //true=on
 }) => {
   console.log(post);
   const [toggleComment, setToggleComment] = useState(false);
@@ -33,17 +35,17 @@ const PostCard = ({
   }, [showCommentLine, toggleComment]);
 
   // 44px: Là khoảng cách từ đỉnh thẻ xuống dưới avatar (Avatar 36px + gap)
-  // 15px: Là khoảng hở muốn chừa lại ở dưới cùng thẻ cho đẹp
+  // 69px: Là khoảng hở muốn chừa lại ở dưới cùng thẻ cho đẹp
 
-  const calculatedLineHeight = cardHeight > 64 ? cardHeight - 44 * 2 - 15 : 0;
+  const calculatedLineHeight = cardHeight > 64 ? cardHeight - 44 * 2 - 69 : 0;
 
   return (
-    <div ref={cardRef} className="relative px-4 ">
+    <div ref={cardRef} className={`relative px-4 ${className}`}>
       <div className="flex gap-2 items-start ">
         <div className="shrink-0 ">
           <Avatar>
             <AvatarImage
-              src="./placeholder.avif"
+              src="/placeholder.avif"
               className="w-9 h-9  rounded-full border"
             />
             <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
@@ -68,9 +70,13 @@ const PostCard = ({
             </div>
 
             {/* dot */}
-            <div className="flex-1 justify-end flex">
-              <Ellipsis className="text-gray-400" />
-            </div>
+            {ToggleMenu ? (
+              <div className="flex-1 justify-end flex">
+                <Ellipsis className="text-gray-400" />
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
           {/* caption */}
           <p className="cursor-pointer break-all whitespace-pre-wrap">
@@ -125,7 +131,13 @@ const PostCard = ({
       </div>
       {toggleComment && (
         <div>
-          <Comment />
+          <Comment
+            username={username}
+            post={post}
+            handleToggleComment={() => {
+              setToggleComment(false);
+            }}
+          />
         </div>
       )}
 

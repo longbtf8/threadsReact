@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useGetUserInfoQuery, useLoginMutation } from "@/services/Auth/authApi";
 import { Link, Navigate, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 
 const schema = zod.object({
   login: zod.string().trim().min(1, "Vui lòng nhập tên tài khoản"), // Nên thêm min(1) để bắt buộc nhập
@@ -53,7 +55,7 @@ function Login() {
   }, [error?.data?.message]);
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   // lưu vào localstorage
   useEffect(() => {
     if (isSuccess) {
@@ -66,9 +68,10 @@ function Login() {
       const { access_token, refresh_token } = data;
       localStorage.setItem("accessToken", access_token);
       localStorage.setItem("refreshToken", refresh_token);
-      navigate("/");
+      dispatch(closeSignInUp());
+      window.location.href = "/";
     }
-  }, [data, isSuccess, navigate]);
+  }, [data, isSuccess, dispatch]);
 
   const submit = (fromData) => {
     console.log(fromData);

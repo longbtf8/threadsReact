@@ -2,7 +2,7 @@ import { interactionSlice } from "@/features/interaction/interactionSlice";
 import { modelSignInUpSlice } from "@/features/modalSignInUp/modalSignInUpSlice";
 import { authApi } from "@/services/Auth/authApi";
 import { postInteractions } from "@/services/Interactions/postInteractions";
-import { postApi } from "@/services/Post/postApi";
+import { postApi } from "@/services/postService.js";
 
 import { configureStore } from "@reduxjs/toolkit";
 

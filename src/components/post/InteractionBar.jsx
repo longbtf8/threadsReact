@@ -97,7 +97,7 @@ const InteractionBar = ({
         }}
       >
         <MessageCircle />
-        20
+        {post?.replies_count}
       </ToggleGroupItem>
 
       {/* repeat */}

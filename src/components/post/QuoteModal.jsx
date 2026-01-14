@@ -93,7 +93,7 @@ export function AddPost({ isOpen, onClose, post }) {
             </Avatar>
             <div className="flex-1">
               <div className="flex items-center gap-1.5">
-                <p className="font-semibold">{currentUser.username}</p>
+                <p className="font-semibold">{currentUser?.username}</p>
                 <ChevronRight className="mr-1 -ml-0.5 size-4" />
                 <input
                   type="text"

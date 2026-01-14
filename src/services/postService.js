@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "../baseQuery";
+import { axiosBaseQuery } from "./baseQuery";
 
 export const postApi = createApi({
   reducerPath: "postApi",
@@ -20,6 +20,26 @@ export const postApi = createApi({
       }),
       providesTags: ["post"],
     }),
+
+    getPostId: builder.query({
+      query: ({ id }) => ({
+        url: `/posts/${id}`,
+      }),
+    }),
+
+    // comment || create reply
+    createReply: builder.mutation({
+      query: ({ id, postData }) => ({
+        url: `/posts/${id}/reply`,
+        method: "POST",
+        data: postData,
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 });
-export const { useGetPostsFeedQuery } = postApi;
+export const {
+  useGetPostsFeedQuery,
+  useGetPostIdQuery,
+  useCreateReplyMutation,
+} = postApi;

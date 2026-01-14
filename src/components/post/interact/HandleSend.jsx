@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CopyAsImage } from "../modalCopyAsImage";
+import { EmbedModal } from "../EmbedModal";
 
 // HandleSend
 const HandleSend = ({ isOpen, onClose }) => {
@@ -40,14 +41,22 @@ const HandleSend = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  // download and copy img
   const [toggleModalCpImg, setToggleModalCpImg] = useState(false);
   const handleCloseModalCpImg = () => {
     setToggleModalCpImg(false);
     onClose();
   };
+
+  // get embed code
+  const [toggleEmbedModal, setEmbedModal] = useState(false);
+  const handleCloseEmbedModal = () => {
+    setEmbedModal(false);
+    onClose();
+  };
   return (
     <>
-      {isOpen && !toggleModalCpImg && (
+      {isOpen && !toggleModalCpImg && !toggleEmbedModal && (
         <div
           className="inset-0 bg-black/50  fixed left-0 bottom-15 md:z-40 z-100 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent"
           onClick={onClose}
@@ -78,7 +87,9 @@ const HandleSend = ({ isOpen, onClose }) => {
               </div>
               <div
                 className="flex items-center gap-3 w-full p-3 cursor-pointer md:hover:bg-gray-100 transition md:rounded-xl md:py-1.5"
-                onClick={onClose}
+                onClick={() => {
+                  setEmbedModal(true);
+                }}
               >
                 <span className="grow">Lấy mã nhúng</span>
                 <CodeXml size={20} />
@@ -92,6 +103,12 @@ const HandleSend = ({ isOpen, onClose }) => {
         isOpen={toggleModalCpImg}
         onClose={() => {
           handleCloseModalCpImg();
+        }}
+      />
+      <EmbedModal
+        isOpen={toggleEmbedModal}
+        onClose={() => {
+          handleCloseEmbedModal();
         }}
       />
     </>

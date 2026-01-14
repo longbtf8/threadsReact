@@ -1,6 +1,7 @@
 import { MessageSquareQuote, Repeat } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AddPost } from "../QuoteModal";
+import { useSetQuoteModal } from "@/hooks/useSetQuoteModal";
 
 // handleRepeat
 const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
@@ -17,11 +18,8 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
     };
   }, [isOpen, onClose]);
 
-  const [toggleQuote, setToggleQuote] = useState(false);
-  const handleToggleQuote = () => {
-    setToggleQuote(false);
-    onClose();
-  };
+  const { toggleQuote, setToggleQuote, handleToggleQuote } =
+    useSetQuoteModal(onClose);
 
   return (
     <>

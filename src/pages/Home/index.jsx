@@ -2,10 +2,9 @@ import Header from "@/components/Header";
 import WhatIsNew from "./WhatIsNew";
 import PostCard from "@/components/post/PostCard";
 import NavFirstHome from "./NavFirstHome";
-import { useGetPostsFeedQuery } from "@/services/Post/postApi";
+import { useGetPostsFeedQuery } from "@/services/postService.js";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useRepeatPostMutation } from "@/services/Interactions/postInteractions";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -15,7 +14,6 @@ const Home = () => {
     type: "for_you",
     page: page,
   });
-  console.log(newPost);
   useEffect(() => {
     if (newPost) {
       if (newPost.length == 0) {
@@ -30,8 +28,7 @@ const Home = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newPost]);
-  const obj = useRepeatPostMutation();
-  console.log(obj);
+
   const fetchMoreData = () => {
     if (!isFetching) {
       setPage((prevPage) => prevPage + 1);
