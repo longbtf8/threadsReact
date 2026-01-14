@@ -69,7 +69,7 @@ export const MorePost = ({
             onChange={onChange}
           ></textarea>
           {/* Hiển thị dòng thông báo lỗi ngay dưới */}
-          <div className="h-3">
+          <div className="h-3 -mt-2">
             {error && (
               <p className="text-red-500 text-xs mt-1 ">{error.message}</p>
             )}

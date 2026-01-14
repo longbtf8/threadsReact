@@ -56,7 +56,6 @@ export function ReplyModal({ isOpen, onClose, post }) {
   });
   const [createReply, { isLoading }] = useCreateReplyMutation();
   const onSubmit = async (formData) => {
-    console.log(formData);
     try {
       let currentParentId = post.id; // id của post hiện tại
       for (const replyItem of formData.replies) {
@@ -71,6 +70,12 @@ export function ReplyModal({ isOpen, onClose, post }) {
         if (result && result?.id) {
           currentParentId = result.id;
         }
+        toast("Đăng nhập thành công", {
+          position: "bottom-center",
+          autoClose: 3000,
+          theme: "dark",
+          className: "!w-fit",
+        });
       }
     } catch (error) {
       console.error("Lỗi khi đăng bài:", error);

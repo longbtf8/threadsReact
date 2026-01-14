@@ -6,7 +6,7 @@ export const postApi = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: "https://threads.f8team.dev/api",
   }),
-  tagTypes: ["post"],
+  tagTypes: ["Post"],
 
   endpoints: (builder) => ({
     getPostsFeed: builder.query({
@@ -18,7 +18,7 @@ export const postApi = createApi({
           page,
         },
       }),
-      providesTags: ["post"],
+      providesTags: ["Post"],
     }),
 
     getPostId: builder.query({
@@ -36,10 +36,21 @@ export const postApi = createApi({
       }),
       invalidatesTags: ["Post"],
     }),
+
+    // createPost
+    createPost: builder.mutation({
+      query: (formData) => ({
+        url: `/posts`,
+        method: "POST",
+        data: formData,
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 });
 export const {
   useGetPostsFeedQuery,
   useGetPostIdQuery,
   useCreateReplyMutation,
+  useCreatePostMutation,
 } = postApi;

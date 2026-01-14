@@ -6,6 +6,7 @@ import {
   FileText,
   Folders,
   Images,
+  Loader,
   MapPin,
   SlidersVertical,
   Smile,
@@ -21,6 +22,26 @@ import { MorePost } from "./writeMorePost";
 import { measureHeight } from "@/utils/measureHeight";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
+import {
+  useCreatePostMutation,
+  useCreateReplyMutation,
+} from "@/services/postService";
+import { toast } from "react-toastify";
+
+const schema = zod
+  .object({
+    quotes: zod.array(
+      zod.object({
+        content: zod.string().min(1, "Nội dung không được để trống"),
+        topic: zod.string().optional(),
+      })
+    ),
+  })
+  .required();
+
 export function AddPost({ isOpen, onClose, post }) {
   const actionStyle = "cursor-pointer p-1.5 text-(--color-time)";
   //info Me
@@ -30,14 +51,6 @@ export function AddPost({ isOpen, onClose, post }) {
     username: post?.user.username,
     date: post?.created_at,
     content: post?.content,
-  };
-  // add post
-  const [extraPosts, setExtraPosts] = useState([]);
-  const handleAddPost = () => {
-    setExtraPosts((prev) => [...prev, { id: Date.now() }]);
-  };
-  const handleRemovePost = (idPost) => {
-    setExtraPosts((prev) => prev.filter((item) => item.id != idPost));
   };
 
   // logic kẻ nối avatar
@@ -55,6 +68,80 @@ export function AddPost({ isOpen, onClose, post }) {
     return () => clearTimeout(timer);
   }, [isOpen]);
   const calculatedLineHeight = replyHeight > 36 ? replyHeight - 36 : 0;
+
+  // form
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      quotes: [{ content: "", topic: "" }],
+    },
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "quotes",
+  });
+  const [createPost, { isLoading: isLoading1 }] = useCreatePostMutation();
+  const [createReply, { isLoading: isLoading2 }] = useCreateReplyMutation();
+  const onSubmit = async (formData) => {
+    try {
+      let id = null;
+      for (const [index, quoteItem] of formData.quotes.entries()) {
+        console.log(formData);
+        const payLoad = {
+          content: quoteItem.content,
+        };
+        if (index === 0) {
+          const result = await createPost(payLoad).unwrap();
+          if (result && result?.id) {
+            id = result.id;
+          }
+        } else {
+          const payLoadReply = {
+            id: id,
+            postData: payLoad,
+          };
+          const result2 = createReply(payLoadReply);
+          if (result2 && result2?.id) {
+            id = result2.id;
+          }
+        }
+      }
+      toast("Đăng thành công", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
+    } catch (error) {
+      console.error("Lỗi khi đăng bài:", error);
+      toast("Đã có Lỗi", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
+    } finally {
+      onClose();
+    }
+  };
+  // Reset form mỗi khi mở modal
+  useEffect(() => {
+    if (isOpen) {
+      reset({ quotes: [{ content: "", topic: "" }] });
+    }
+  }, [isOpen, reset]);
+  //logic bật add
+  // Kiểm tra điều kiện xem phần tử cuối có được gõ không thì add thêm
+  const repliesValue = useWatch({ name: "quotes", control });
+  const lastQuotesIndex = repliesValue.length - 1;
+  const lastQuotesContent = repliesValue[lastQuotesIndex]?.content || "";
+  const canAddMore = lastQuotesContent.trim().length > 0;
   return (
     <>
       <Modal
@@ -79,7 +166,10 @@ export function AddPost({ isOpen, onClose, post }) {
           </header>
         </div>
 
-        <form className="overflow-y-auto flex-1">
+        <form
+          className="overflow-y-auto flex-1"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {/* Content Post */}
           <div className="flex gap-3  pt-4 pb-1.25 relative" ref={replyDiv}>
             <Avatar>
@@ -99,13 +189,26 @@ export function AddPost({ isOpen, onClose, post }) {
                   type="text"
                   placeholder="Thêm chủ đề"
                   className="px-0.5 py-px focus:outline-0"
+                  {...register("quotes.0.topic")}
                 />
               </div>
               <main>
                 <textarea
                   placeholder={`Có gì mới...?`}
                   className="w-full resize-none overflow-hidden focus:outline-0"
+                  {...register("quotes.0.content")}
                 ></textarea>
+                <div className="h-5 text-red-400 -mt-2">
+                  {
+                    <p>
+                      {errors.quotes?.[0]?.content && (
+                        <span className="text-red-500 text-xs">
+                          {errors.quotes[0].content.message}
+                        </span>
+                      )}
+                    </p>
+                  }
+                </div>
               </main>
               {/* Action */}
               <div className="flex gap-1.5">
@@ -133,21 +236,23 @@ export function AddPost({ isOpen, onClose, post }) {
             />
           </div>
 
-          {/* Error Message */}
-          {/* {error && (
-              <div className="mx-6 mb-4 rounded-lg border border-red-500/20 bg-red-500/10 p-3">
-                <p className="text-sm text-red-500">
-                  {error?.data?.message || "Có lỗi xảy ra, vui lòng thử lại"}
-                </p>
-              </div>
-            )} */}
-          {extraPosts.map((item) => {
+          {fields.map((item, index) => {
+            if (index === 0) return null;
             return (
-              <MorePost
+              <Controller
                 key={item.id}
-                onRemove={() => {
-                  handleRemovePost(item.id);
-                }}
+                control={control}
+                name={`quotes.${index}.content`}
+                render={({ field, fieldState }) => (
+                  <MorePost
+                    value={field.value}
+                    onChange={field.onChange}
+                    error={fieldState.error}
+                    onRemove={() => {
+                      remove(index);
+                    }}
+                  />
+                )}
               />
             );
           })}
@@ -164,9 +269,15 @@ export function AddPost({ isOpen, onClose, post }) {
               </Avatar>
             </div>
             <span
-              className="cursor-pointer text-gray-500"
+              className={`select-none ${
+                canAddMore
+                  ? "cursor-pointer hover:text-black"
+                  : "cursor-not-allowed opacity-50"
+              }`}
               onClick={() => {
-                handleAddPost();
+                if (canAddMore) {
+                  append({ content: "", topic: "" });
+                }
               }}
             >
               Thêm vào thread
@@ -184,9 +295,14 @@ export function AddPost({ isOpen, onClose, post }) {
               </span>
             </div>
             <Button
-              className={`cursor-pointer border border-(--outline-primary) bg-(--bg-primary) px-4 text-(--text-color) select-none`}
+              type="submit"
+              className={`cursor-pointer border border-(--outline-primary) bg-(--bg-primary) px-4 text-(--text-color) select-none hover:bg-background`}
             >
-              "Đang đăng..." : "Đăng"
+              {isLoading1 || isLoading2 ? (
+                <Loader className="animate-spin" />
+              ) : (
+                <span>Đăng</span>
+              )}
             </Button>
           </footer>
         </form>

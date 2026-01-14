@@ -22,7 +22,6 @@ const PostCard = ({
   className,
   ToggleMenu, //true=on
 }) => {
-  console.log(post);
   const [toggleComment, setToggleComment] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);
   const cardRef = useRef(null);
