@@ -20,7 +20,7 @@ const PostCard = ({
   ToggleInteractionBar = true,
   post,
   className,
-  ToggleMenu, //true=on
+  ToggleMenu = true, //true=on
 }) => {
   const [toggleComment, setToggleComment] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);

@@ -5,6 +5,7 @@ import NavFirstHome from "./NavFirstHome";
 import { useGetPostsFeedQuery } from "@/services/postService.js";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -34,13 +35,19 @@ const Home = () => {
       setPage((prevPage) => prevPage + 1);
     }
   };
-
+  //  info user
+  const currentUser = useGetUserInfoQuery();
+  console.log(currentUser);
   return (
     <div className="w-full mx-auto ">
       <Header title={"Home"} />
       <div className="md:border">
-        <WhatIsNew />
-        <NavFirstHome />
+        {currentUser.isSuccess && (
+          <>
+            <WhatIsNew />
+            <NavFirstHome />
+          </>
+        )}
 
         <div className=" p-4 rounded-2xl min-h-screen  " id="scrollableDiv">
           <InfiniteScroll
