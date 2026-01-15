@@ -49,7 +49,7 @@ const Home = () => {
           </>
         )}
 
-        <div className=" p-4 rounded-2xl min-h-screen  " id="scrollableDiv">
+        <div className=" p-4 rounded-2xl min-h-screen" id="scrollableDiv">
           <InfiniteScroll
             dataLength={posts.length}
             next={fetchMoreData}

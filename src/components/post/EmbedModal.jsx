@@ -27,9 +27,8 @@ export const EmbedModal = ({ isOpen, onClose }) => {
     "/" +
     post?.user?.username +
     "/post/" +
-    post.id +
+    post?.id +
     "/embed";
-  console.log(embedUrl);
   const embedCode = `<iframe src="${embedUrl}"></iframe>`;
   const handleCopy = (value) => {
     copy(value);

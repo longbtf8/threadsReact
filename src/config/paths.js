@@ -1,6 +1,7 @@
 const paths = {
   home: "/",
   search: "/search",
+  heart: "/heart",
   login: "/login",
   user: "/user",
   register: "/register",

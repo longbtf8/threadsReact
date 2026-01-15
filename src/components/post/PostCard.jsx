@@ -6,6 +6,12 @@ import { useEffect, useRef, useState } from "react";
 import { measureHeight } from "@/utils/measureHeight";
 import { formatDistanceStrict } from "date-fns";
 import { vi } from "date-fns/locale";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  closeInteraction,
+  toggleInteraction,
+} from "@/features/interaction/interactionSlice";
+import ThreadMenu from "./ThreadMenu";
 
 const PostCard = ({
   showCommentLine = true,
@@ -38,6 +44,12 @@ const PostCard = ({
 
   const calculatedLineHeight = cardHeight > 64 ? cardHeight - 44 * 2 - 69 : 0;
 
+  // menu
+  const dispatch = useDispatch();
+  const { activePostId, activeType } = useSelector(
+    (state) => state.interaction
+  );
+  const isMenuOpen = activePostId === post?.id && activeType === "menuPost";
   return (
     <div ref={cardRef} className={`relative px-4 ${className}`}>
       <div className="flex gap-2 items-start ">
@@ -70,8 +82,27 @@ const PostCard = ({
 
             {/* dot */}
             {ToggleMenu ? (
-              <div className="flex-1 justify-end flex">
+              <div
+                className="flex-1 justify-end flex relative"
+                onClick={() => {
+                  dispatch(
+                    toggleInteraction({
+                      activeType: "menuPost",
+                      activePostId: post?.id,
+                    })
+                  );
+                  console.log(1);
+                }}
+              >
                 <Ellipsis className="text-gray-400" />
+                {isMenuOpen && (
+                  <ThreadMenu
+                    isOpen={isMenuOpen}
+                    onClose={() => {
+                      dispatch(closeInteraction());
+                    }}
+                  />
+                )}
               </div>
             ) : (
               <></>
@@ -83,34 +114,7 @@ const PostCard = ({
           </p>
         </div>
       </div>
-      {/* Ảnh and video */}
-      {/* <div className=" -mr-4 ">
-        <div className=" -ml-4 rounded-xl mt-3 flex justify-start overflow-x-auto gap-1 pr-4 cursor-grab [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="w-13.75 h-auto max-h-70 shrink-0 "></div>
-          <img
-            src="https://vn1.vdrive.vn/alohamedia.vn/2025/02/9-712x1024.jpg"
-            alt="content"
-            className=" h-auto max-h-70 rounded-2xl align-middle object-cover "
-          />
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnI1VPlKyFrCh35t98X5tJC1vm6U7Ami-Muw&s"
-            alt="content"
-            className=" h-auto max-h-70 rounded-2xl align-middle object-cover"
-          />
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnI1VPlKyFrCh35t98X5tJC1vm6U7Ami-Muw&s"
-            alt="content"
-            className=" h-auto max-h-70 rounded-2xl align-middle object-cover"
-          />
-          <iframe
-            src="https://www.youtube.com/embed/Jpg7yQuyjZY"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-70 rounded-2xl aspect-video" // Thêm aspect-video để giữ tỉ lệ khung hình
-          ></iframe>
-        </div>
-      </div> */}
+
       <div className="ml-7.25 mt-2">
         {" "}
         {ToggleInteractionBar ? (

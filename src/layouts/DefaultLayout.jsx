@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import ModalPost from "@/components/post/modalPost";
 import { Button } from "@/components/ui/button";
 import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
-import { closeModalPost } from "@/features/post/modalPostSlice";
+import { closeModalPost, openModalPost } from "@/features/post/modalPostSlice";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { Plus } from "lucide-react";
 import { createPortal } from "react-dom";
@@ -86,14 +86,18 @@ const DefaultLayout = () => {
           }}
         />
       </div>
-      {createPortal(
-        <Button
-          className={`fixed right-[3%] bottom-[3%] h-17 w-20.5 cursor-pointer rounded-2xl bg-background border hover:scale-110 max-md:hidden z-99 text-black hover:bg-background`}
-        >
-          <Plus />
-        </Button>,
-        document.body
-      )}
+      {currentUser.isSuccess &&
+        createPortal(
+          <Button
+            className={`fixed right-[3%] bottom-[3%] h-17 w-20.5 cursor-pointer rounded-2xl bg-background border hover:scale-110 max-md:hidden z-99 text-black hover:bg-background`}
+            onClick={() => {
+              dispatch(openModalPost("Plus"));
+            }}
+          >
+            <Plus />
+          </Button>,
+          document.body
+        )}
       <ModalPost
         modalIsOpen={isOpenPost}
         closeModal={() => {

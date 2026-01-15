@@ -10,6 +10,7 @@ import ResetPassword from "./pages/Auth/ResetPassword";
 import { Embed } from "./pages/Embeb";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Heart from "./pages/Search";
 import Search from "./pages/Search";
 import User from "./pages/User";
 
@@ -19,6 +20,7 @@ const routes = [
     children: [
       { path: paths.home, component: Home },
       { path: paths.search, component: Search },
+      { path: paths.heart, component: Heart },
       { path: paths.user, component: User },
     ],
   },

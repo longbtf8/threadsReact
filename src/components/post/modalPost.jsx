@@ -28,6 +28,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { MdGifBox } from "react-icons/md";
 import { MorePost } from "./writeMorePost";
+import { useSelector } from "react-redux";
 
 const schema = zod
   .object({
@@ -40,7 +41,24 @@ const schema = zod
   })
   .required();
 
+const MODAL_VARIANTS = {
+  default: {
+    overlay:
+      "fixed inset-0 flex md:justify-center md:items-center z-100 bg-black/40 items-end",
+    content:
+      "flex flex-col outline-none bg-background md:p-4 md:rounded-2xl md:w-155  md:h-auto md:max-h-150 h-screen rounded-none p-6  w-full ",
+  },
+  Plus: {
+    overlay:
+      "fixed md:bottom-5 md:right-5 md:top-auto md:left-auto md:w-[600px] md:h-auto flex md:justify-center md:items-center z-100 inset-0",
+    content:
+      "flex  flex-col flex-1 md:p-4 bg-background md:rounded-2xl md:border md:max-h-100 md:h-auto h-screen p-6 ",
+  },
+};
+
 const ModalPost = ({ modalIsOpen, closeModal }) => {
+  const variant = useSelector((state) => state.modalPost.variant);
+  const style = MODAL_VARIANTS[variant] || MODAL_VARIANTS.default;
   const actionStyle = "cursor-pointer p-1.5 text-(--color-time)";
   //info Me
   const { data: currentUser } = useGetUserInfoQuery();
@@ -134,15 +152,16 @@ const ModalPost = ({ modalIsOpen, closeModal }) => {
   const lastQuotesIndex = repliesValue.length - 1;
   const lastQuotesContent = repliesValue[lastQuotesIndex]?.content || "";
   const canAddMore = lastQuotesContent.trim().length > 0;
+
   return (
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       contentLabel="Modal SignIn"
-      overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-100 bg-black/40 items-end"
-      className=" flex flex-col outline-none bg-background md:p-4 md:rounded-2xl md:w-155  md:h-auto md:max-h-150 h-screen rounded-none p-6  w-full "
+      overlayClassName={style.overlay}
+      className={style.content}
     >
-      <div className="border-b -mx-4">
+      <div className="border-b md:-mx-4 -mx-6">
         <header className="flex items-center justify-between  py-2  px-6 shrink-0">
           <button
             className="close-btn cursor-pointer p-1 font-bold"

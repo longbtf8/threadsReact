@@ -1,7 +1,16 @@
 import { openSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 import { openModalPost } from "@/features/post/modalPostSlice";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
-import { House, Search, Heart, Plus, Menu, Pin, UserRound } from "lucide-react";
+import {
+  House,
+  Search,
+  Heart,
+  Plus,
+  Menu,
+  Pin,
+  UserRound,
+  Icon,
+} from "lucide-react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router";
 
@@ -107,29 +116,36 @@ const Navigation = () => {
 
         {/* nav setting */}
         <ul className="hidden md:flex md:flex-col mb-1.5">
-          {itemsSetting.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <li key={index}>
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `h-13 w-15 my-0.5  flex justify-center items-center  ${
-                      isActive ? `text-black` : "text-gray-400 "
-                    }
+          {itemsSetting
+            .filter((item) => {
+              if (item.icon === Pin && currentUser.isSuccess) {
+                return false;
+              }
+              return true;
+            })
+            .map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <li key={index}>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `h-13 w-15 my-0.5  flex justify-center items-center  ${
+                        isActive ? `text-black` : "text-gray-400 "
+                      }
                     hover:bg-gray-200 rounded-xl transition duration-300`
-                  }
-                  onClick={(e) => {
-                    if (!currentUser.isSuccess) {
-                      handleNavClick(e, item);
                     }
-                  }}
-                >
-                  <Icon className="size-6" />
-                </NavLink>
-              </li>
-            );
-          })}
+                    onClick={(e) => {
+                      if (!currentUser.isSuccess) {
+                        handleNavClick(e, item);
+                      }
+                    }}
+                  >
+                    <Icon className="size-6" />
+                  </NavLink>
+                </li>
+              );
+            })}
         </ul>
       </nav>
     </div>
