@@ -1,4 +1,5 @@
 import { openSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
+import { openModalPost } from "@/features/post/modalPostSlice";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { House, Search, Heart, Plus, Menu, Pin, UserRound } from "lucide-react";
 import { useDispatch } from "react-redux";
@@ -14,7 +15,7 @@ const items = [
     icon: Search,
   },
   {
-    path: "/plus",
+    // path: "/plus",
     icon: Plus,
     background: true,
     protected: true,
@@ -90,6 +91,10 @@ const Navigation = () => {
                   onClick={(e) => {
                     if (!currentUser.isSuccess) {
                       handleNavClick(e, item);
+                    }
+                    if (item.icon === Plus) {
+                      e.preventDefault();
+                      dispatch(openModalPost());
                     }
                   }}
                 >

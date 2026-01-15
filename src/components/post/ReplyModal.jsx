@@ -25,6 +25,7 @@ import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useCreateReplyMutation } from "@/services/postService";
+import { toast } from "react-toastify";
 
 const schema = zod.object({
   replies: zod.array(
@@ -70,7 +71,7 @@ export function ReplyModal({ isOpen, onClose, post }) {
         if (result && result?.id) {
           currentParentId = result.id;
         }
-        toast("Đăng nhập thành công", {
+        toast("Đăng thành công", {
           position: "bottom-center",
           autoClose: 3000,
           theme: "dark",
@@ -79,6 +80,12 @@ export function ReplyModal({ isOpen, onClose, post }) {
       }
     } catch (error) {
       console.error("Lỗi khi đăng bài:", error);
+      toast("Đã có Lỗi", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "dark",
+        className: "!w-fit",
+      });
     } finally {
       onClose();
     }
@@ -143,9 +150,9 @@ export function ReplyModal({ isOpen, onClose, post }) {
         isOpen={isOpen}
         onRequestClose={onClose}
         overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-100 md:bg-black/40  "
-        className="outline-none bg-background md:p-4 md:rounded-2xl md:w-155 md:pt- md:pb-6 md:px-6 md:min-h-100.5 min-h-80 p-6 w-full relative  flex flex-col max-h-screen "
+        className=" flex flex-col outline-none bg-background md:p-4 md:rounded-2xl md:w-155  md:h-auto md:max-h-150 h-screen rounded-none p-6  w-full "
       >
-        <div className="border-b -mx-6">
+        <div className="border-b -mx-4">
           <header className="flex items-center justify-between  py-2  px-6">
             <button
               className="close-btn cursor-pointer p-1 font-bold"
@@ -153,7 +160,7 @@ export function ReplyModal({ isOpen, onClose, post }) {
             >
               <X />
             </button>
-            <p className="text-[16px] font-bold">Thread mới</p>
+            <p className="text-[16px] font-bold">Reply</p>
             <div className="flex items-center">
               <Folders size={34} className="p-1.5" />
               <CircleEllipsis size={34} className="p-1.5" />
@@ -162,131 +169,133 @@ export function ReplyModal({ isOpen, onClose, post }) {
         </div>
 
         <form
-          className="overflow-y-auto flex-1 overflow-x-hidden"
+          className="flex-1 flex-col flex  min-h-0"
           onSubmit={handleSubmit(onSubmit)}
         >
-          {/* Content Post */}
-          {/* Post Gốc (Của người khác) */}
-          <div className="flex gap-3  pt-4 pb-1.25 relative">
-            <div className="flex-1">
-              <div
-                className="min-h-10 flex-1 mt-2 rounded-md mb-5 -mx-4 "
-                ref={replyDiv}
-              >
-                <PostCard
-                  content={content}
-                  username={username}
-                  date={date}
-                  ToggleInteractionBar={false}
-                  ToggleMenu={false}
-                />
-              </div>
-            </div>
-            {/* Đường kẻ  */}
-            <div
-              className="absolute top-16 left-4 w-0.5 bg-gray-200 transition-all duration-300"
-              style={{ height: `${calculatedLineHeight}px` }}
-            ></div>
-          </div>
-
-          {/* --- BÀI REPLY CHÍNH (INDEX 0) --- */}
-          <div className="-mt-4 flex relative" ref={postDiv}>
-            <Avatar>
-              <AvatarImage
-                src="./placeholder.avif"
-                className="w-9 h-9  rounded-full border"
-              />
-              <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
-                Avt
-              </AvatarFallback>
-            </Avatar>
-
-            <div className="grow relative">
-              <div className="flex gap-2 items-start justify-start">
-                <p className="font-semibold cursor-pointer hover:underline">
-                  {currentUser.name}
-                </p>{" "}
-                <span className="text-gray-400">&gt;</span>
-                <input
-                  type="text"
-                  placeholder="Thêm chủ đề"
-                  className="outline-none focus:border-gray-300 transition duration-300 border-transparent border-b"
-                  {...register("replies.0.topic")}
-                />
-              </div>
-              <textarea
-                type="text"
-                placeholder={`Trả lời ${username}...`}
-                className="outline-none w-full min-h-5 pr-10 mb-2"
-                {...register("replies.0.content")}
-              />
-              <div className="h-5 text-red-400">
-                {
-                  <p>
-                    {errors.replies?.[0]?.content && (
-                      <span className="text-red-500 text-xs">
-                        {errors.replies[0].content.message}
-                      </span>
-                    )}
-                  </p>
-                }
-              </div>
-            </div>
-            {/* line */}
-            <div
-              className="absolute top-10.5 left-4 w-0.5 bg-gray-200 transition-all duration-300"
-              style={{ height: `${calculatedLinePostHeight}px` }}
-            ></div>
-          </div>
-
-          {/* --- CÁC BÀI WRITE MORE POST (DYNAMIC) --- */}
-
-          {fields.map((item, index) => {
-            if (index === 0) return null;
-            return (
-              <Controller
-                key={item.id}
-                control={control}
-                name={`replies.${index}.content`}
-                render={({ field, fieldState }) => (
-                  <MorePost
-                    value={field.value}
-                    onChange={field.onChange}
-                    error={fieldState.error}
-                    onRemove={() => {
-                      remove(index);
-                    }}
+          <div className="overflow-y-auto flex-1 flex-col flex  min-h-0 overflow-x-hidden">
+            {/* Content Post */}
+            {/* Post Gốc (Của người khác) */}
+            <div className="flex gap-3  pt-4 pb-1.25 relative">
+              <div className="flex-1">
+                <div
+                  className="min-h-10 flex-1 mt-2 rounded-md mb-5 -mx-4 "
+                  ref={replyDiv}
+                >
+                  <PostCard
+                    content={content}
+                    username={username}
+                    date={date}
+                    ToggleInteractionBar={false}
+                    ToggleMenu={false}
                   />
-                )}
-              />
-            );
-          })}
-          <div className="flex items-center gap-4 px-2 mt-2">
-            <div>
+                </div>
+              </div>
+              {/* Đường kẻ  */}
+              <div
+                className="absolute top-16 left-4 w-0.5 bg-gray-200 transition-all duration-300"
+                style={{ height: `${calculatedLineHeight}px` }}
+              ></div>
+            </div>
+
+            {/* --- BÀI REPLY CHÍNH (INDEX 0) --- */}
+            <div className="-mt-4 flex relative" ref={postDiv}>
               <Avatar>
                 <AvatarImage
                   src="./placeholder.avif"
-                  className="w-4 h-4  rounded-full border"
+                  className="w-9 h-9  rounded-full border"
                 />
                 <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
                   Avt
                 </AvatarFallback>
               </Avatar>
+
+              <div className="grow relative">
+                <div className="flex gap-2 items-start justify-start">
+                  <p className="font-semibold cursor-pointer hover:underline">
+                    {currentUser.name}
+                  </p>{" "}
+                  <span className="text-gray-400">&gt;</span>
+                  <input
+                    type="text"
+                    placeholder="Thêm chủ đề"
+                    className="outline-none focus:border-gray-300 transition duration-300 border-transparent border-b"
+                    {...register("replies.0.topic")}
+                  />
+                </div>
+                <textarea
+                  type="text"
+                  placeholder={`Trả lời ${username}...`}
+                  className="outline-none w-full min-h-5 pr-10 mb-2"
+                  {...register("replies.0.content")}
+                />
+                <div className="h-5 text-red-400">
+                  {
+                    <p>
+                      {errors.replies?.[0]?.content && (
+                        <span className="text-red-500 text-xs">
+                          {errors.replies[0].content.message}
+                        </span>
+                      )}
+                    </p>
+                  }
+                </div>
+              </div>
+              {/* line */}
+              <div
+                className="absolute top-10.5 left-4 w-0.5 bg-gray-200 transition-all duration-300"
+                style={{ height: `${calculatedLinePostHeight}px` }}
+              ></div>
             </div>
-            <span
-              className={`select-none ${
-                canAddMore
-                  ? "cursor-pointer hover:text-black"
-                  : "cursor-not-allowed opacity-50"
-              }`}
-              onClick={() => {
-                if (canAddMore) {
-                  append({ content: "", topic: "" });
-                }
-              }}
-            >
-              Thêm vào thread
-            </span>
+
+            {/* --- CÁC BÀI WRITE MORE POST (DYNAMIC) --- */}
+
+            {fields.map((item, index) => {
+              if (index === 0) return null;
+              return (
+                <Controller
+                  key={item.id}
+                  control={control}
+                  name={`replies.${index}.content`}
+                  render={({ field, fieldState }) => (
+                    <MorePost
+                      value={field.value}
+                      onChange={field.onChange}
+                      error={fieldState.error}
+                      onRemove={() => {
+                        remove(index);
+                      }}
+                    />
+                  )}
+                />
+              );
+            })}
+            <div className="flex items-center gap-4 px-2 mt-2">
+              <div>
+                <Avatar>
+                  <AvatarImage
+                    src="./placeholder.avif"
+                    className="w-4 h-4  rounded-full border"
+                  />
+                  <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
+                    Avt
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <span
+                className={`select-none ${
+                  canAddMore
+                    ? "cursor-pointer hover:text-black"
+                    : "cursor-not-allowed opacity-50"
+                }`}
+                onClick={() => {
+                  if (canAddMore) {
+                    append({ content: "", topic: "" });
+                  }
+                }}
+              >
+                Thêm vào thread
+              </span>
+            </div>
           </div>
           {/* Modal Footer */}
           <footer className="flex items-center justify-between mt-6">

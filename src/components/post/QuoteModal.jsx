@@ -148,9 +148,9 @@ export function AddPost({ isOpen, onClose, post }) {
         isOpen={isOpen}
         onRequestClose={onClose}
         overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-100 md:bg-black/40  "
-        className="outline-none bg-background md:p-4 md:rounded-2xl md:w-155 md:pt- md:pb-6 md:px-6 md:min-h-100.5 min-h-80 p-6 w-full relative  flex flex-col max-h-screen"
+        className=" flex flex-col outline-none bg-background md:p-4 md:rounded-2xl md:w-155  md:h-auto md:max-h-150 h-screen rounded-none p-6  w-full "
       >
-        <div className="border-b -mx-6">
+        <div className="border-b -mx-4">
           <header className="flex items-center justify-between  py-2  px-6">
             <button
               className="close-btn cursor-pointer p-1 font-bold"
@@ -167,121 +167,123 @@ export function AddPost({ isOpen, onClose, post }) {
         </div>
 
         <form
-          className="overflow-y-auto flex-1"
+          className="flex-1 flex-col flex  min-h-0"
           onSubmit={handleSubmit(onSubmit)}
         >
-          {/* Content Post */}
-          <div className="flex gap-3  pt-4 pb-1.25 relative" ref={replyDiv}>
-            <Avatar>
-              <AvatarImage
-                src="./placeholder.avif"
-                className="w-9 h-9  rounded-full border"
-              />
-              <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
-                Avt
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1">
-              <div className="flex items-center gap-1.5">
-                <p className="font-semibold">{currentUser?.username}</p>
-                <ChevronRight className="mr-1 -ml-0.5 size-4" />
-                <input
-                  type="text"
-                  placeholder="Thêm chủ đề"
-                  className="px-0.5 py-px focus:outline-0"
-                  {...register("quotes.0.topic")}
-                />
-              </div>
-              <main>
-                <textarea
-                  placeholder={`Có gì mới...?`}
-                  className="w-full resize-none overflow-hidden focus:outline-0"
-                  {...register("quotes.0.content")}
-                ></textarea>
-                <div className="h-5 text-red-400 -mt-2">
-                  {
-                    <p>
-                      {errors.quotes?.[0]?.content && (
-                        <span className="text-red-500 text-xs">
-                          {errors.quotes[0].content.message}
-                        </span>
-                      )}
-                    </p>
-                  }
-                </div>
-              </main>
-              {/* Action */}
-              <div className="flex gap-1.5">
-                <Images size={30} className={`${actionStyle}`} />
-                <MdGifBox size={30} className={`${actionStyle} `} />
-                <Smile size={30} className={`${actionStyle}`} />
-                <TextAlignStart size={30} className={`${actionStyle}`} />
-                <FileText size={30} className={`${actionStyle}`} />
-                <MapPin size={30} className={`${actionStyle}`} />
-              </div>
-
-              <div className="min-h-10 flex-1 mt-2 border px-2 py-4 rounded-md  mb">
-                <PostCard
-                  content={content}
-                  username={username}
-                  date={date}
-                  ToggleInteractionBar={false}
-                />
-              </div>
-            </div>
-            {/* Đường kẻ - CHỈ hiện khi cả 2 điều kiện đều true */}
-            <div
-              className="absolute top-15 left-4 w-0.5 bg-gray-200 transition-all duration-300"
-              style={{ height: `${calculatedLineHeight}px` }}
-            />
-          </div>
-
-          {fields.map((item, index) => {
-            if (index === 0) return null;
-            return (
-              <Controller
-                key={item.id}
-                control={control}
-                name={`quotes.${index}.content`}
-                render={({ field, fieldState }) => (
-                  <MorePost
-                    value={field.value}
-                    onChange={field.onChange}
-                    error={fieldState.error}
-                    onRemove={() => {
-                      remove(index);
-                    }}
-                  />
-                )}
-              />
-            );
-          })}
-          <div className="flex items-center gap-4 px-2 mt-2">
-            <div>
+          <div className="overflow-y-auto flex-1 flex-col flex  min-h-0">
+            {/* Content Post */}
+            <div className="flex gap-3  pt-4 pb-1.25 relative" ref={replyDiv}>
               <Avatar>
                 <AvatarImage
                   src="./placeholder.avif"
-                  className="w-4 h-4  rounded-full border"
+                  className="w-9 h-9  rounded-full border"
                 />
                 <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
                   Avt
                 </AvatarFallback>
               </Avatar>
+              <div className="flex-1">
+                <div className="flex items-center gap-1.5">
+                  <p className="font-semibold">{currentUser?.username}</p>
+                  <ChevronRight className="mr-1 -ml-0.5 size-4" />
+                  <input
+                    type="text"
+                    placeholder="Thêm chủ đề"
+                    className="px-0.5 py-px focus:outline-0"
+                    {...register("quotes.0.topic")}
+                  />
+                </div>
+                <main>
+                  <textarea
+                    placeholder={`Có gì mới...?`}
+                    className="w-full resize-none overflow-hidden focus:outline-0"
+                    {...register("quotes.0.content")}
+                  ></textarea>
+                  <div className="h-5 text-red-400 -mt-2">
+                    {
+                      <p>
+                        {errors.quotes?.[0]?.content && (
+                          <span className="text-red-500 text-xs">
+                            {errors.quotes[0].content.message}
+                          </span>
+                        )}
+                      </p>
+                    }
+                  </div>
+                </main>
+                {/* Action */}
+                <div className="flex gap-1.5">
+                  <Images size={30} className={`${actionStyle}`} />
+                  <MdGifBox size={30} className={`${actionStyle} `} />
+                  <Smile size={30} className={`${actionStyle}`} />
+                  <TextAlignStart size={30} className={`${actionStyle}`} />
+                  <FileText size={30} className={`${actionStyle}`} />
+                  <MapPin size={30} className={`${actionStyle}`} />
+                </div>
+
+                <div className="min-h-10 flex-1 mt-2 border px-2 py-4 rounded-md  mb">
+                  <PostCard
+                    content={content}
+                    username={username}
+                    date={date}
+                    ToggleInteractionBar={false}
+                  />
+                </div>
+              </div>
+              {/* Đường kẻ - CHỈ hiện khi cả 2 điều kiện đều true */}
+              <div
+                className="absolute top-15 left-4 w-0.5 bg-gray-200 transition-all duration-300"
+                style={{ height: `${calculatedLineHeight}px` }}
+              />
             </div>
-            <span
-              className={`select-none ${
-                canAddMore
-                  ? "cursor-pointer hover:text-black"
-                  : "cursor-not-allowed opacity-50"
-              }`}
-              onClick={() => {
-                if (canAddMore) {
-                  append({ content: "", topic: "" });
-                }
-              }}
-            >
-              Thêm vào thread
-            </span>
+
+            {fields.map((item, index) => {
+              if (index === 0) return null;
+              return (
+                <Controller
+                  key={item.id}
+                  control={control}
+                  name={`quotes.${index}.content`}
+                  render={({ field, fieldState }) => (
+                    <MorePost
+                      value={field.value}
+                      onChange={field.onChange}
+                      error={fieldState.error}
+                      onRemove={() => {
+                        remove(index);
+                      }}
+                    />
+                  )}
+                />
+              );
+            })}
+            <div className="flex items-center gap-4 px-2 mt-2">
+              <div>
+                <Avatar>
+                  <AvatarImage
+                    src="./placeholder.avif"
+                    className="w-4 h-4  rounded-full border"
+                  />
+                  <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
+                    Avt
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <span
+                className={`select-none ${
+                  canAddMore
+                    ? "cursor-pointer hover:text-black"
+                    : "cursor-not-allowed opacity-50"
+                }`}
+                onClick={() => {
+                  if (canAddMore) {
+                    append({ content: "", topic: "" });
+                  }
+                }}
+              >
+                Thêm vào thread
+              </span>
+            </div>
           </div>
           {/* Modal Footer */}
           <footer className="flex items-center justify-between mt-6">

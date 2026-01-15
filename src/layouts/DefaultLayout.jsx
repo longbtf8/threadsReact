@@ -2,8 +2,10 @@ import AuthCard from "@/components/Auth/AuthCard";
 import ModalSignInUp from "@/components/modalSignInUp/modalSignInSignUp";
 import ModelSignInUp from "@/components/modalSignInUp/modalSignInSignUp";
 import Navigation from "@/components/Navigation";
+import ModalPost from "@/components/post/modalPost";
 import { Button } from "@/components/ui/button";
 import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
+import { closeModalPost } from "@/features/post/modalPostSlice";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { Plus } from "lucide-react";
 import { createPortal } from "react-dom";
@@ -13,12 +15,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet } from "react-router";
 
 const DefaultLayout = () => {
+  // logicOpenModal
   const isOpenModalSignInUp = useSelector(
     (state) => state.modalSignInUp.isModalOpen
   );
+
   const dispatch = useDispatch();
   const handleCloseModalSignInUp = () => {
     dispatch(closeSignInUp());
+  };
+
+  const isOpenPost = useSelector((state) => state.modalPost.isModalOpen);
+  const handleCloseModalPost = () => {
+    dispatch(closeModalPost());
   };
   const currentUser = useGetUserInfoQuery();
   return (
@@ -85,6 +94,12 @@ const DefaultLayout = () => {
         </Button>,
         document.body
       )}
+      <ModalPost
+        modalIsOpen={isOpenPost}
+        closeModal={() => {
+          handleCloseModalPost();
+        }}
+      />
     </>
   );
 };
