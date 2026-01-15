@@ -72,38 +72,50 @@ const ThreadMenu = ({ isOpen, onClose }) => {
       action: () => console.log("Copy link"),
     },
   ];
-  console.log("hien");
   return (
-    <div className=" absolute top-0 right-0 w-full max-w-md mx-auto bg-white rounded-3xl shadow-lg overflow-hidden z-50">
-      <ul className="divide-y divide-gray-100">
-        {menuItems.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <li key={index}>
-              <button
-                onClick={item.action}
-                className={`w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors ${
-                  item.border ? "border-b-8 border-gray-100" : ""
-                }`}
-              >
-                <span
-                  className={`text-base font-medium ${
-                    item.danger ? "text-red-500" : "text-gray-900"
+    <div
+      className=" shadow-lg overflow-hidden z-102 fixed  inset-0 bg-black/50 flex items-end md:absolute md:top-0 md:bottom-auto  md:rounded-2xl md:inset-auto md:right-0 md:w-[250px] "
+      onClick={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
+    >
+      <div
+        className="bg-white flex-1 rounded-2xl overflow-hidden"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <ul className="divide-y divide-gray-100 ">
+          {menuItems.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <li key={index}>
+                <button
+                  onClick={item.action}
+                  className={`w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors ${
+                    item.border ? "border-b-8 border-gray-100" : ""
                   }`}
                 >
-                  {item.label}
-                </span>
-                <Icon
-                  className={`w-6 h-6 ${
-                    item.danger ? "text-red-500" : "text-gray-900"
-                  }`}
-                  strokeWidth={2}
-                />
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+                  <span
+                    className={`text-base font-medium ${
+                      item.danger ? "text-red-500" : "text-gray-900"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                  <Icon
+                    className={`w-6 h-6 ${
+                      item.danger ? "text-red-500" : "text-gray-900"
+                    }`}
+                    strokeWidth={2}
+                  />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

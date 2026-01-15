@@ -84,11 +84,12 @@ const PostCard = ({
             {ToggleMenu ? (
               <div
                 className="flex-1 justify-end flex relative"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   dispatch(
                     toggleInteraction({
-                      activeType: "menuPost",
-                      activePostId: post?.id,
+                      type: "menuPost",
+                      postId: post?.id,
                     })
                   );
                   console.log(1);
