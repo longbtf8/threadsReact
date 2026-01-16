@@ -122,14 +122,16 @@ const InteractionBar = ({
           {repeatCount}
         </ToggleGroupItem>
 
-        <HandleRepeat
-          isOpen={isRepeatOpen}
-          onClose={() => {
-            dispatch(closeInteraction());
-          }}
-          handleRepost={handleToggleRepeat}
-          post={post}
-        />
+        {isRepeatOpen && (
+          <HandleRepeat
+            isOpen={isRepeatOpen}
+            onClose={() => {
+              dispatch(closeInteraction());
+            }}
+            handleRepost={handleToggleRepeat}
+            post={post}
+          />
+        )}
       </div>
 
       {/* send */}
@@ -158,12 +160,14 @@ const InteractionBar = ({
           Send
         </ToggleGroupItem>
 
-        <HandleSend
-          isOpen={isSendOpen}
-          onClose={() => {
-            dispatch(closeInteraction());
-          }}
-        />
+        {isSendOpen && (
+          <HandleSend
+            isOpen={isSendOpen}
+            onClose={() => {
+              dispatch(closeInteraction());
+            }}
+          />
+        )}
       </div>
     </ToggleGroup>
   );

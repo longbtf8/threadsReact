@@ -1,10 +1,9 @@
-import copy from "copy-to-clipboard";
 import { CodeXml, Images, Link } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { CopyAsImage } from "../modalCopyAsImage";
 import { EmbedModal } from "../EmbedModal";
+import { handleCopyPostLink } from "../handleCopyPostLink";
 
 // HandleSend
 const HandleSend = ({ isOpen, onClose }) => {
@@ -29,16 +28,11 @@ const HandleSend = ({ isOpen, onClose }) => {
   const postId = activePostId;
   // handleCopyLink
   const handleCopyLink = () => {
-    const url = window.location.origin + "/" + username + "/post/" + postId;
-    copy(url);
-    toast("Đã sao chép", {
-      position: "bottom-center",
-      autoClose: 3000,
-      theme: "dark",
-      className: "!w-fit",
+    handleCopyPostLink({
+      onClose: onClose,
+      PostId: postId,
+      username: username,
     });
-
-    onClose();
   };
 
   // download and copy img

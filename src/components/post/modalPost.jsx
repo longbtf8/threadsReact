@@ -186,7 +186,7 @@ const ModalPost = ({ modalIsOpen, closeModal }) => {
           <div className="flex gap-3  pt-4 pb-1.25 relative" ref={replyDiv}>
             <Avatar>
               <AvatarImage
-                src="./placeholder.avif"
+                src="/avt.jpg"
                 className="w-9 h-9  rounded-full border"
               />
               <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">

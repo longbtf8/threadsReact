@@ -149,7 +149,7 @@ export function ReplyModal({ isOpen, onClose, post }) {
       <Modal
         isOpen={isOpen}
         onRequestClose={onClose}
-        overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-100 md:bg-black/40  "
+        overlayClassName="fixed inset-0 flex md:justify-center md:items-center z-105 md:bg-black/40  "
         className=" flex flex-col outline-none bg-background md:p-4 md:rounded-2xl md:w-155  md:h-auto md:max-h-150 h-screen rounded-none p-6  w-full "
       >
         <div className="border-b -mx-4">
@@ -201,7 +201,7 @@ export function ReplyModal({ isOpen, onClose, post }) {
             <div className="-mt-4 flex relative" ref={postDiv}>
               <Avatar>
                 <AvatarImage
-                  src="./placeholder.avif"
+                  src="/avt.jpg"
                   className="w-9 h-9  rounded-full border"
                 />
                 <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">

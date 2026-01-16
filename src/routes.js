@@ -10,9 +10,9 @@ import ResetPassword from "./pages/Auth/ResetPassword";
 import { Embed } from "./pages/Embeb";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import Heart from "./pages/Search";
-import Search from "./pages/Search";
+import Heart from "./pages/Heart";
 import User from "./pages/User";
+import Search from "./pages/Search";
 
 const routes = [
   {

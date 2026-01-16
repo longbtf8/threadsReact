@@ -1,8 +1,11 @@
+import { useToggleSettingMenu } from "@/hooks/settingMenu/useToggleSetting";
 import { CircleEllipsis, Menu } from "lucide-react";
-import { Link } from "react-router";
-import { Button } from "../ui/button";
+import SettingsMenu from "../setting";
 
 const Header = ({ title }) => {
+  // setting
+  const { toggleSettingMenu, handleCloseMenu, setToggleSettingMenu } =
+    useToggleSettingMenu();
   return (
     <div className="sticky z-99 top-0 w-full bg-white">
       <div className="flex justify-center items-center h-15 ">
@@ -33,8 +36,19 @@ const Header = ({ title }) => {
         </div>
       </div>
 
-      <div className="absolute top-5 right-4 md:hidden">
+      <div
+        className="absolute top-5 right-4 md:hidden cursor-pointer select-none"
+        onClick={() => {
+          setToggleSettingMenu(!toggleSettingMenu);
+        }}
+      >
         <Menu />
+        <SettingsMenu
+          isOpen={toggleSettingMenu}
+          onClose={() => {
+            handleCloseMenu();
+          }}
+        />
       </div>
     </div>
   );

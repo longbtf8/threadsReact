@@ -8,22 +8,28 @@ import {
   MessageSquareWarning,
   Link,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { handleCopyPostLink } from "./handleCopyPostLink";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
 
 const ThreadMenu = ({ isOpen, onClose }) => {
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, onClose]);
+  // đóng bằng escape
+  useEscapeKey(isOpen, onClose);
 
+  // lấy data từ redux
+  const { activePostId, activePostData } = useSelector(
+    (state) => state.interaction
+  );
+  const username = activePostData?.username;
+  const postId = activePostId;
+  // copy
+  const handleCopyLink = () => {
+    handleCopyPostLink({
+      onClose: onClose,
+      PostId: postId,
+      username: username,
+    });
+  };
   const menuItems = [
     {
       label: "Thêm vào bảng feed",
@@ -69,12 +75,12 @@ const ThreadMenu = ({ isOpen, onClose }) => {
     {
       label: "Sao chép liên kết",
       icon: Link,
-      action: () => console.log("Copy link"),
+      action: () => handleCopyLink(),
     },
   ];
   return (
     <div
-      className=" shadow-lg overflow-hidden z-102 fixed  inset-0 bg-black/50 flex items-end md:absolute md:top-0 md:bottom-auto  md:rounded-2xl md:inset-auto md:right-0 md:w-[250px] "
+      className=" shadow-lg overflow-hidden z-50 fixed  inset-0 bg-black/50 flex items-end md:absolute md:top-8 md:bottom-auto  md:rounded-2xl md:inset-auto md:right-0 md:w-62.5 "
       onClick={(e) => {
         e.stopPropagation();
         onClose();
@@ -93,7 +99,7 @@ const ThreadMenu = ({ isOpen, onClose }) => {
               <li key={index}>
                 <button
                   onClick={item.action}
-                  className={`w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors ${
+                  className={`w-full px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors ${
                     item.border ? "border-b-8 border-gray-100" : ""
                   }`}
                 >

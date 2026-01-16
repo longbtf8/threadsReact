@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Ellipsis } from "lucide-react";
 import InteractionBar from "./InteractionBar";
-import Comment from "../comment";
+import Comment from "./comment";
 import { useEffect, useRef, useState } from "react";
 import { measureHeight } from "@/utils/measureHeight";
 import { formatDistanceStrict } from "date-fns";
@@ -56,7 +56,7 @@ const PostCard = ({
         <div className="shrink-0 ">
           <Avatar>
             <AvatarImage
-              src="/placeholder.avif"
+              src="/avatarProfile.jpg"
               className="w-9 h-9  rounded-full border"
             />
             <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
@@ -90,6 +90,7 @@ const PostCard = ({
                     toggleInteraction({
                       type: "menuPost",
                       postId: post?.id,
+                      data: { username: username },
                     })
                   );
                   console.log(1);

@@ -8,7 +8,6 @@ import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 import { closeModalPost, openModalPost } from "@/features/post/modalPostSlice";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { Plus } from "lucide-react";
-import { createPortal } from "react-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -79,31 +78,33 @@ const DefaultLayout = () => {
           </div>
         )}
 
-        <ModalSignInUp
-          modalIsOpen={isOpenModalSignInUp}
+        {isOpenModalSignInUp && (
+          <ModalSignInUp
+            modalIsOpen={isOpenModalSignInUp}
+            closeModal={() => {
+              handleCloseModalSignInUp();
+            }}
+          />
+        )}
+      </div>
+      {currentUser.isSuccess && (
+        <Button
+          className={`fixed right-[3%] bottom-[3%] h-17 w-20.5 cursor-pointer rounded-2xl bg-background border hover:scale-110 max-md:hidden z-99 text-black hover:bg-background`}
+          onClick={() => {
+            dispatch(openModalPost("Plus"));
+          }}
+        >
+          <Plus />
+        </Button>
+      )}
+      {isOpenPost && (
+        <ModalPost
+          modalIsOpen={isOpenPost}
           closeModal={() => {
-            handleCloseModalSignInUp();
+            handleCloseModalPost();
           }}
         />
-      </div>
-      {currentUser.isSuccess &&
-        createPortal(
-          <Button
-            className={`fixed right-[3%] bottom-[3%] h-17 w-20.5 cursor-pointer rounded-2xl bg-background border hover:scale-110 max-md:hidden z-99 text-black hover:bg-background`}
-            onClick={() => {
-              dispatch(openModalPost("Plus"));
-            }}
-          >
-            <Plus />
-          </Button>,
-          document.body
-        )}
-      <ModalPost
-        modalIsOpen={isOpenPost}
-        closeModal={() => {
-          handleCloseModalPost();
-        }}
-      />
+      )}
     </>
   );
 };

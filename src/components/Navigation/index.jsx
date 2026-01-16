@@ -12,7 +12,9 @@ import {
   Icon,
 } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import SettingsMenu from "../setting";
+import { useToggleSettingMenu } from "@/hooks/settingMenu/useToggleSetting";
 
 const items = [
   {
@@ -41,19 +43,20 @@ const items = [
   },
 ];
 
-const itemsSetting = [
-  {
-    path: "/pin",
-    icon: Pin,
-    protected: true,
-  },
-  {
-    path: "/setting",
-    icon: Menu,
-  },
-];
+// const itemsSetting = [
+//   {
+//     path: "/pin",
+//     icon: Pin,
+//     protected: true,
+//   },
+//   {
+//     path: "/setting",
+//     icon: Menu,
+//   },
+// ];
 
 const Navigation = () => {
+  // info user
   const currentUser = useGetUserInfoQuery();
   const dispatch = useDispatch();
   const handleNavClick = (e, item) => {
@@ -67,17 +70,24 @@ const Navigation = () => {
       }
     }
   };
+
+  // setting
+  const { toggleSettingMenu, handleCloseMenu, setToggleSettingMenu } =
+    useToggleSettingMenu();
   return (
     <div className="fixed z-99 left-0 bottom-0 md:top-0  bg-white w-full md:w-19">
       <nav className="flex md:flex-col md:h-screen  md:justify-between items-center md:p-4 p-3 w-full h-16">
         {/* Logo */}
         <ul className="hidden md:block">
           <li>
-            <img
-              src="./Thread_logo.svg"
-              alt="logo"
-              className="w-10  cursor-pointer hover:scale-110 transition "
-            />
+            <Link to={"/"}>
+              {" "}
+              <img
+                src="./Thread_logo.svg"
+                alt="logo"
+                className="w-10  cursor-pointer hover:scale-110 transition "
+              />
+            </Link>
           </li>
         </ul>
 
@@ -116,36 +126,34 @@ const Navigation = () => {
 
         {/* nav setting */}
         <ul className="hidden md:flex md:flex-col mb-1.5">
-          {itemsSetting
-            .filter((item) => {
-              if (item.icon === Pin && currentUser.isSuccess) {
-                return false;
-              }
-              return true;
-            })
-            .map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <li key={index}>
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `h-13 w-15 my-0.5  flex justify-center items-center  ${
-                        isActive ? `text-black` : "text-gray-400 "
-                      }
-                    hover:bg-gray-200 rounded-xl transition duration-300`
-                    }
-                    onClick={(e) => {
-                      if (!currentUser.isSuccess) {
-                        handleNavClick(e, item);
-                      }
-                    }}
-                  >
-                    <Icon className="size-6" />
-                  </NavLink>
-                </li>
-              );
-            })}
+          <li>
+            <NavLink
+              className={`h-13 w-15 my-0.5  flex justify-center items-center text-gray-400 hover:bg-gray-200 rounded-xl transition duration-300`}
+              onClick={() => {
+                if (!currentUser.isSuccess) {
+                  dispatch(openSignInUp());
+                }
+              }}
+            >
+              <Pin className="size-6" />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={`h-13 w-15 my-0.5  flex justify-center items-center text-gray-400 hover:bg-gray-200 rounded-xl transition duration-300 relative`}
+              onClick={() => {
+                setToggleSettingMenu(!toggleSettingMenu);
+              }}
+            >
+              <Menu className="size-6" />
+            </NavLink>
+            <SettingsMenu
+              isOpen={toggleSettingMenu}
+              onClose={() => {
+                handleCloseMenu();
+              }}
+            />
+          </li>
         </ul>
       </nav>
     </div>

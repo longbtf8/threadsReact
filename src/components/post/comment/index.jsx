@@ -1,15 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Maximize2 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useCreateReplyMutation } from "@/services/postService.js";
 import { toast } from "react-toastify";
-import { AddPost } from "../post/QuoteModal";
+import { AddPost } from "../QuoteModal";
 import { useSetReplyModal } from "@/hooks/useSetReplyModal";
-import { ReplyModal } from "../post/ReplyModal";
+import { ReplyModal } from "../ReplyModal";
 
 const Comment = ({ username, post, handleToggleComment }) => {
   const { data: currentUser } = useGetUserInfoQuery();
@@ -54,7 +54,7 @@ const Comment = ({ username, post, handleToggleComment }) => {
         <div className=" flex pt-2 gap-2.5">
           <Avatar>
             <AvatarImage
-              src="./placeholder.avif"
+              src="/avt.jpg"
               className="w-9 h-9  rounded-full border"
             />
             <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">

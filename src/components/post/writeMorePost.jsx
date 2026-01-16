@@ -39,10 +39,7 @@ export const MorePost = ({
   return (
     <div className="flex gap-3  pt-4 pb-1.25 relative" ref={postDiv}>
       <Avatar>
-        <AvatarImage
-          src="./placeholder.avif"
-          className="w-9 h-9  rounded-full border"
-        />
+        <AvatarImage src="/avt.jpg" className="w-9 h-9  rounded-full border" />
         <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
           Avt
         </AvatarFallback>

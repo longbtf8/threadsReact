@@ -12,7 +12,7 @@ const WhatIsNew = () => {
     >
       <div className="flex-1 flex justify-start items-center gap-1">
         <img
-          src="./placeholder.avif"
+          src="/avatarProfile.jpg"
           alt="Profile"
           className="h-9 w-9 border rounded-full"
         />
