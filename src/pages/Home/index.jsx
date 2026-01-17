@@ -28,7 +28,7 @@ const Home = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newPost]);
+  }, [newPost, page]);
 
   const fetchMoreData = () => {
     if (!isFetching) {

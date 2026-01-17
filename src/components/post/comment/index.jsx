@@ -51,7 +51,12 @@ const Comment = ({ username, post, handleToggleComment }) => {
   return (
     <>
       {!toggleReplyModal && (
-        <div className=" flex pt-2 gap-2.5">
+        <div
+          className=" flex pt-2 gap-2.5"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <Avatar>
             <AvatarImage
               src="/avt.jpg"
