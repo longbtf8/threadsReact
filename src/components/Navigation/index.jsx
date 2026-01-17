@@ -126,22 +126,28 @@ const Navigation = () => {
 
         {/* nav setting */}
         <ul className="hidden md:flex md:flex-col mb-1.5">
-          <li>
-            <NavLink
-              className={`h-13 w-15 my-0.5  flex justify-center items-center text-gray-400 hover:bg-gray-200 rounded-xl transition duration-300`}
-              onClick={() => {
-                if (!currentUser.isSuccess) {
-                  dispatch(openSignInUp());
-                }
-              }}
-            >
-              <Pin className="size-6" />
-            </NavLink>
-          </li>
+          {!currentUser.isSuccess && (
+            <li>
+              <NavLink
+                className={`h-13 w-15 my-0.5  flex justify-center items-center text-gray-400 hover:bg-gray-200 rounded-xl transition duration-300`}
+                onClick={() => {
+                  if (!currentUser.isSuccess) {
+                    dispatch(openSignInUp());
+                  }
+                }}
+              >
+                <Pin className="size-6" />
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink
               className={`h-13 w-15 my-0.5  flex justify-center items-center text-gray-400 hover:bg-gray-200 rounded-xl transition duration-300 relative`}
               onClick={() => {
+                if (!currentUser.isSuccess) {
+                  dispatch(openSignInUp());
+                  return;
+                }
                 setToggleSettingMenu(!toggleSettingMenu);
               }}
             >

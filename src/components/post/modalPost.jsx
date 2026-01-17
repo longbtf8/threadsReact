@@ -1,5 +1,6 @@
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import {
+  postApi,
   useCreatePostMutation,
   useCreateReplyMutation,
 } from "@/services/postService";
@@ -28,7 +29,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { MdGifBox } from "react-icons/md";
 import { MorePost } from "./writeMorePost";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const schema = zod
   .object({
@@ -96,6 +97,9 @@ const ModalPost = ({ modalIsOpen, closeModal }) => {
     control,
     name: "quotes",
   });
+
+  // Api
+  const dispatch = useDispatch();
   const [createPost, { isLoading: isLoading1 }] = useCreatePostMutation();
   const [createReply, { isLoading: isLoading2 }] = useCreateReplyMutation();
   const onSubmit = async (formData) => {
@@ -128,6 +132,7 @@ const ModalPost = ({ modalIsOpen, closeModal }) => {
         theme: "dark",
         className: "!w-fit",
       });
+      dispatch(postApi.util.resetApiState());
     } catch (error) {
       console.error("Lỗi khi đăng bài:", error);
       toast("Đã có Lỗi", {

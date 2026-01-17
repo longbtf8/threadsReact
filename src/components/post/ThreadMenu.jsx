@@ -11,11 +11,19 @@ import {
 import { useSelector } from "react-redux";
 import { handleCopyPostLink } from "./handleCopyPostLink";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useRef } from "react";
+import { useHandleClickOutSide } from "@/hooks/useHandleClickOutSide";
 
 const ThreadMenu = ({ isOpen, onClose }) => {
   // đóng bằng escape
   useEscapeKey(isOpen, onClose);
-
+  // đóng khi click bên ngoài
+  const ThreadMenuRef = useRef();
+  useHandleClickOutSide({
+    valueRef: ThreadMenuRef,
+    isOpen: isOpen,
+    onClose: onClose,
+  });
   // lấy data từ redux
   const { activePostId, activePostData } = useSelector(
     (state) => state.interaction
@@ -80,7 +88,8 @@ const ThreadMenu = ({ isOpen, onClose }) => {
   ];
   return (
     <div
-      className=" shadow-lg overflow-hidden z-50 fixed  inset-0 bg-black/50 flex items-end md:absolute md:top-8 md:bottom-auto  md:rounded-2xl md:inset-auto md:right-0 md:w-62.5 "
+      className=" shadow-lg overflow-hidden z-50 fixed  inset-0 bg-black/50 flex items-end md:absolute md:top-8 md:bottom-auto  md:rounded-2xl md:inset-auto md:right-0 md:w-62.5  "
+      ref={ThreadMenuRef}
       onClick={(e) => {
         e.stopPropagation();
         onClose();
