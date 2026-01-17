@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import Heart from "./pages/Heart";
 import User from "./pages/User";
 import Search from "./pages/Search";
+import { PostDetail } from "./pages/post/postDetail";
 
 const routes = [
   {
@@ -22,6 +23,7 @@ const routes = [
       { path: paths.search, component: Search },
       { path: paths.heart, component: Heart },
       { path: paths.user, component: User },
+      { path: paths.postDetail, component: PostDetail },
     ],
   },
   {

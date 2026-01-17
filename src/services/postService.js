@@ -46,6 +46,17 @@ export const postApi = createApi({
       }),
       invalidatesTags: ["Post"],
     }),
+
+    // get replies
+    getPostReplies: builder.query({
+      query: ({ id, per_page, page }) => ({
+        url: `/posts/${id}/replies`,
+        params: {
+          per_page,
+          page,
+        },
+      }),
+    }),
   }),
 });
 export const {
@@ -53,4 +64,5 @@ export const {
   useGetPostIdQuery,
   useCreateReplyMutation,
   useCreatePostMutation,
+  useGetPostRepliesQuery,
 } = postApi;

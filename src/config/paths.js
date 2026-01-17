@@ -8,6 +8,7 @@ const paths = {
   forgotPassword: "/forgotPassword",
   resetPassword: "/reset-password",
   embed: "/:username/post/:postId/embed",
+  postDetail: "/:username/post/:postId",
   notFound: "*",
 };
 export default paths;

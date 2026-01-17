@@ -6,31 +6,14 @@ import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 
 import { ArrowLeft, Bell, CircleEllipsis } from "lucide-react";
 
-import { useNavigate } from "react-router";
-
 const User = () => {
-  const navigate = useNavigate();
   const { data: userInfo } = useGetUserInfoQuery();
   return (
     <div className="w-full mx-auto ">
       <Header title={"Search"} />
       <div className="md:border">
-        <div className=" p-4 rounded-2xl min-h-screen">
+        <div className=" px-4 rounded-2xl min-h-screen">
           <div>
-            <div
-              className="  pl-4 pt-2 flex items-center  cursor-pointer"
-              onClick={() => {
-                if (window.history.length > 1) {
-                  navigate(-1);
-                } else {
-                  navigate("/");
-                }
-              }}
-            >
-              <ArrowLeft className="pb-2 pr-2" />
-              <p className="pb-2 pr-2">Quay Lại</p>
-            </div>
-
             {/* Phần thông tin User */}
             <div className="p-4">
               <div className="flex items-center">

@@ -12,6 +12,7 @@ import {
   toggleInteraction,
 } from "@/features/interaction/interactionSlice";
 import ThreadMenu from "./ThreadMenu";
+import { useNavigate } from "react-router";
 
 const PostCard = ({
   showCommentLine = true,
@@ -50,8 +51,19 @@ const PostCard = ({
     (state) => state.interaction
   );
   const isMenuOpen = activePostId === post?.id && activeType === "menuPost";
+
+  // to Post Detail
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(`/${username}/post/${post?.id}`);
+  };
+
   return (
-    <div ref={cardRef} className={`relative px-4 ${className}`}>
+    <div
+      ref={cardRef}
+      className={`relative px-4 ${className}`}
+      onClick={handleNavigate}
+    >
       <div className="flex gap-2 items-start ">
         <div className="shrink-0 ">
           <Avatar>
@@ -117,7 +129,7 @@ const PostCard = ({
         </div>
       </div>
 
-      <div className="ml-7.25 mt-2">
+      <div className={`${showCommentLine ? "ml-7.25" : ""} mt-2`}>
         {" "}
         {ToggleInteractionBar ? (
           <InteractionBar

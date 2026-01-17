@@ -1,8 +1,8 @@
 import { useToggleSettingMenu } from "@/hooks/settingMenu/useToggleSetting";
-import { CircleEllipsis, Menu } from "lucide-react";
+import { CircleArrowLeft, CircleEllipsis, Menu } from "lucide-react";
 import SettingsMenu from "../setting";
 
-const Header = ({ title }) => {
+const Header = ({ title, back = false }) => {
   // setting
   const { toggleSettingMenu, handleCloseMenu, setToggleSettingMenu } =
     useToggleSettingMenu();
@@ -17,8 +17,13 @@ const Header = ({ title }) => {
           />
           {/* NavHome Or Title */}
           <div className="hidden md:flex justify-between w-full relative h-full items-center p-4">
+            {back && (
+              <div className="cursor-pointer">
+                <CircleArrowLeft />
+              </div>
+            )}
             <div></div>
-            <div>{title}</div>
+            <div className="flex-1 text-center">{title}</div>
             <div className="cursor-pointer ">
               <CircleEllipsis />
             </div>

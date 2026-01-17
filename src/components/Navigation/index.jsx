@@ -83,7 +83,7 @@ const Navigation = () => {
             <Link to={"/"}>
               {" "}
               <img
-                src="./Thread_logo.svg"
+                src="/Thread_logo.svg"
                 alt="logo"
                 className="w-10  cursor-pointer hover:scale-110 transition "
               />
