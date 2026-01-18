@@ -94,21 +94,21 @@ const PostCard = ({
 
             {/* dot */}
             {ToggleMenu ? (
-              <div
-                className="flex-1 justify-end flex relative"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(
-                    toggleInteraction({
-                      type: "menuPost",
-                      postId: post?.id,
-                      data: { username: username },
-                    })
-                  );
-                  console.log(1);
-                }}
-              >
-                <Ellipsis className="text-gray-400" />
+              <div className="flex-1 justify-end flex relative">
+                <Ellipsis
+                  className="text-gray-400"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(
+                      toggleInteraction({
+                        type: "menuPost",
+                        postId: post?.id,
+                        data: { username: username },
+                      })
+                    );
+                    console.log(1);
+                  }}
+                />
                 {isMenuOpen && (
                   <ThreadMenu
                     isOpen={isMenuOpen}

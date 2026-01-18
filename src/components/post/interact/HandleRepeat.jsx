@@ -1,7 +1,8 @@
 import { MessageSquareQuote, Repeat } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AddPost } from "../QuoteModal";
 import { useSetQuoteModal } from "@/hooks/useSetQuoteModal";
+import { useHandleClickOutSide } from "@/hooks/useHandleClickOutSide";
 
 // handleRepeat
 const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
@@ -20,7 +21,13 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
 
   const { toggleQuote, setToggleQuote, handleToggleQuote } =
     useSetQuoteModal(onClose);
-
+  // click ra ngoài đóng
+  const repeatRef = useRef();
+  useHandleClickOutSide({
+    valueRef: repeatRef,
+    isOpen: isOpen,
+    onClose: onClose,
+  });
   return (
     <>
       {!toggleQuote && isOpen && (
@@ -29,10 +36,12 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
           onClick={onClose}
         >
           <div
+            ref={repeatRef}
             className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 z-1000 border  md:absolute md:min-w-50 md:top-0 md:right-auto md:bottom-auto md:left-0 md:rounded-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* core */}
+
             <div className="bg-gray-100 rounded-2xl md:bg-transparent">
               <div
                 className="flex items-center gap-3 w-full p-3 cursor-pointer border-b md:hover:bg-gray-100 transition md:border-0 rounded-xl md:p-2"

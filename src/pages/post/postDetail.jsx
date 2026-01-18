@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import Header from "@/components/Header";
 import PostCard from "@/components/post/PostCard";
-import { useBackPage } from "@/hooks/useBackPage";
 import {
   useGetPostIdQuery,
   useGetPostRepliesQuery,
@@ -51,7 +49,6 @@ export const PostDetail = () => {
       setPage((prevPage) => prevPage + 1);
     }
   };
-  const handleBackPage = useBackPage();
   return (
     <>
       <div className="w-full mx-auto flex flex-col h-screen">
