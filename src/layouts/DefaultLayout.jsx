@@ -6,12 +6,13 @@ import ModalPost from "@/components/post/modalPost";
 import { Button } from "@/components/ui/button";
 import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
 import { closeModalPost, openModalPost } from "@/features/post/modalPostSlice";
+import Home from "@/pages/Home";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 import { Plus } from "lucide-react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 
 const DefaultLayout = () => {
   // logicOpenModal
@@ -29,6 +30,8 @@ const DefaultLayout = () => {
     dispatch(closeModalPost());
   };
   const currentUser = useGetUserInfoQuery();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
   return (
     <>
       <Navigation />
@@ -48,10 +51,20 @@ const DefaultLayout = () => {
             {/* Page 1 */}
             <div
               id="scrollableDiv"
-              className="md:min-w-125 md:max-w-166 w-full shrink-0 h-full  md:overflow-y-auto md:overflow-x-hidden"
+              className={`md:min-w-125 md:max-w-166 w-full shrink-0 h-full  md:overflow-y-auto md:overflow-x-hidden ${
+                isHomePage ? "block" : "hidden"
+              }`}
             >
-              <Outlet />
+              <Home />
             </div>
+            {!isHomePage && (
+              <div
+                id="scrollableDiv"
+                className={`md:min-w-125 md:max-w-166 w-full shrink-0 h-full  md:overflow-y-auto md:overflow-x-hidden `}
+              >
+                <Outlet />
+              </div>
+            )}
 
             {/* Login */}
             {currentUser.isSuccess ? (

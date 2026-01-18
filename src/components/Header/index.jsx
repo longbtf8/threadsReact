@@ -1,11 +1,14 @@
 import { useToggleSettingMenu } from "@/hooks/settingMenu/useToggleSetting";
 import { CircleArrowLeft, CircleEllipsis, Menu } from "lucide-react";
 import SettingsMenu from "../setting";
+import { useBackPage } from "@/hooks/useBackPage";
 
 const Header = ({ title, back = false }) => {
   // setting
   const { toggleSettingMenu, handleCloseMenu, setToggleSettingMenu } =
     useToggleSettingMenu();
+
+  const handleBackPage = useBackPage();
   return (
     <div className="sticky z-99 top-0 w-full bg-white">
       <div className="flex justify-center items-center h-15 ">
@@ -18,7 +21,7 @@ const Header = ({ title, back = false }) => {
           {/* NavHome Or Title */}
           <div className="hidden md:flex justify-between w-full relative h-full items-center p-4">
             {back && (
-              <div className="cursor-pointer">
+              <div className="cursor-pointer" onClick={handleBackPage}>
                 <CircleArrowLeft />
               </div>
             )}

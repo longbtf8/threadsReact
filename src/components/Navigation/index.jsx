@@ -81,7 +81,6 @@ const Navigation = () => {
         <ul className="hidden md:block">
           <li>
             <Link to={"/"}>
-              {" "}
               <img
                 src="/Thread_logo.svg"
                 alt="logo"
@@ -113,7 +112,9 @@ const Navigation = () => {
                     }
                     if (item.icon === Plus) {
                       e.preventDefault();
-                      dispatch(openModalPost());
+                      if (currentUser.isSuccess) {
+                        dispatch(openModalPost());
+                      }
                     }
                   }}
                 >
