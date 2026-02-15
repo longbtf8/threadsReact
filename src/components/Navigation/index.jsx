@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router";
 import SettingsMenu from "../setting";
 import { useToggleSettingMenu } from "@/hooks/settingMenu/useToggleSetting";
-
+import logo from "@/assets/Thread_logo.svg";
 const items = [
   {
     path: "/",
@@ -82,7 +82,7 @@ const Navigation = () => {
           <li>
             <Link to={"/"}>
               <img
-                src="/Thread_logo.svg"
+                src={logo}
                 alt="logo"
                 className="w-10  cursor-pointer hover:scale-110 transition "
               />

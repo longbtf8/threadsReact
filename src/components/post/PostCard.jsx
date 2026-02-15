@@ -13,6 +13,7 @@ import {
 } from "@/features/interaction/interactionSlice";
 import ThreadMenu from "./ThreadMenu";
 import { useNavigate } from "react-router";
+import avt from "@/assets/avt.jpg";
 
 const PostCard = ({
   showCommentLine = true,
@@ -67,10 +68,7 @@ const PostCard = ({
       <div className="flex gap-2 items-start ">
         <div className="shrink-0 ">
           <Avatar>
-            <AvatarImage
-              src="/avatarProfile.jpg"
-              className="w-9 h-9  rounded-full border"
-            />
+            <AvatarImage src={avt} className="w-9 h-9  rounded-full border" />
             <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
               Avt
             </AvatarFallback>

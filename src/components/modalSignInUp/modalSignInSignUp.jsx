@@ -88,7 +88,7 @@ const ModalSignInUp = ({ modalIsOpen, closeModal }) => {
         <div className="mr-1">
           {" "}
           <img
-            src="/Instagram_logo.svg.webp"
+            src="Instagram_logo.svg.webp"
             alt="logoIG"
             className="w-11.25 h-11.25"
           />

@@ -21,7 +21,7 @@ export const Embed = () => {
       />
       <div className="absolute right-2 bottom-1 flex gap-1 border p-1 rounded-xl bg-gray-200 cursor-pointer">
         View On Threads
-        <img src="/Thread_logo.svg" alt="logoThread" className="w-6 h-6" />
+        <img src="Thread_logo.svg" alt="logoThread" className="w-6 h-6" />
       </div>
     </div>
   );

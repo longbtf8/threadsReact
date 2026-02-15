@@ -6,6 +6,7 @@ import * as zod from "zod";
 import { useResetPasswordMutation } from "@/services/Auth/authApi";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import logo from "@/assets/Instagram_logo.svg.webp";
 
 const schema = zod
   .object({
@@ -128,11 +129,7 @@ function ResetPassword() {
         <div className=" flex items-center gap-x-2 bg-background rounded-2xl border p-5 cursor-pointer">
           <div className="mr-1">
             {" "}
-            <img
-              src="./Instagram_logo.svg.webp"
-              alt="logoIG"
-              className="w-11.25 h-11.25"
-            />
+            <img src={logo} alt="logoIG" className="w-11.25 h-11.25" />
           </div>
           <div className="grow">
             <p className="text-gray-400">Tiếp tục bằng Instagram</p>

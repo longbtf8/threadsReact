@@ -17,7 +17,7 @@ import { Link, Outlet, useLocation } from "react-router";
 const DefaultLayout = () => {
   // logicOpenModal
   const isOpenModalSignInUp = useSelector(
-    (state) => state.modalSignInUp.isModalOpen
+    (state) => state.modalSignInUp.isModalOpen,
   );
 
   const dispatch = useDispatch();

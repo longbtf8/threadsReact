@@ -30,6 +30,8 @@ import {
   useCreateReplyMutation,
 } from "@/services/postService";
 import { toast } from "react-toastify";
+import avt from "@/assets/avatarProfile.jpg";
+import placeholderAvt from "@/assets/placeholder.avif";
 
 const schema = zod
   .object({
@@ -175,7 +177,7 @@ export function QuoteModal({ isOpen, onClose, post }) {
             <div className="flex gap-3  pt-4 pb-1.25 relative" ref={replyDiv}>
               <Avatar>
                 <AvatarImage
-                  src="/avt.jpg"
+                  src={avt}
                   className="w-9 h-9  rounded-full border"
                 />
                 <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
@@ -261,7 +263,7 @@ export function QuoteModal({ isOpen, onClose, post }) {
               <div>
                 <Avatar>
                   <AvatarImage
-                    src="./placeholder.avif"
+                    src={placeholderAvt}
                     className="w-4 h-4  rounded-full border"
                   />
                   <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">

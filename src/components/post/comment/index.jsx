@@ -9,6 +9,7 @@ import { useCreateReplyMutation } from "@/services/postService.js";
 import { toast } from "react-toastify";
 import { useSetReplyModal } from "@/hooks/useSetReplyModal";
 import { ReplyModal } from "../ReplyModal";
+import avt from "@/assets/avatarProfile.jpg";
 
 const Comment = ({ username, post, handleToggleComment }) => {
   const { data: currentUser } = useGetUserInfoQuery();
@@ -57,10 +58,7 @@ const Comment = ({ username, post, handleToggleComment }) => {
           }}
         >
           <Avatar>
-            <AvatarImage
-              src="/avt.jpg"
-              className="w-9 h-9  rounded-full border"
-            />
+            <AvatarImage src={avt} className="w-9 h-9  rounded-full border" />
             <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
               Avt
             </AvatarFallback>

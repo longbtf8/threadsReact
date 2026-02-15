@@ -8,6 +8,7 @@ import { useGetUserInfoQuery, useLoginMutation } from "@/services/Auth/authApi";
 import { Link, Navigate, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { closeSignInUp } from "@/features/modalSignInUp/modalSignInUpSlice";
+import logo from "@/assets/Instagram_logo.svg.webp";
 
 const schema = zod.object({
   login: zod.string().trim().min(1, "Vui lòng nhập tên tài khoản"), // Nên thêm min(1) để bắt buộc nhập
@@ -131,11 +132,7 @@ function Login() {
         <div className=" flex items-center gap-x-2 bg-background rounded-2xl border p-5 cursor-pointer mt-5">
           <div className="mr-1">
             {" "}
-            <img
-              src="./Instagram_logo.svg.webp"
-              alt="logoIG"
-              className="w-11.25 h-11.25"
-            />
+            <img src={logo} alt="logoIG" className="w-11.25 h-11.25" />
           </div>
           <div className="grow">
             <p className="text-gray-400">Tiếp tục bằng Instagram</p>

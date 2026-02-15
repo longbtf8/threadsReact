@@ -30,6 +30,8 @@ import { Button } from "../ui/button";
 import { MdGifBox } from "react-icons/md";
 import { MorePost } from "./writeMorePost";
 import { useDispatch, useSelector } from "react-redux";
+import avt from "@/assets/avatarProfile.jpg";
+import placeholderAvt from "@/assets/placeholder.avif";
 
 const schema = zod
   .object({
@@ -37,7 +39,7 @@ const schema = zod
       zod.object({
         content: zod.string().min(1, "Nội dung không được để trống"),
         topic: zod.string().optional(),
-      })
+      }),
     ),
   })
   .required();
@@ -190,11 +192,8 @@ const ModalPost = ({ modalIsOpen, closeModal }) => {
           {/* Content Post */}
           <div className="flex gap-3  pt-4 pb-1.25 relative" ref={replyDiv}>
             <Avatar>
-              <AvatarImage
-                src="/avt.jpg"
-                className="w-9 h-9  rounded-full border"
-              />
-              <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
+              <AvatarImage src={avt} className="w-10  rounded-full border" />
+              <AvatarFallback className="w-9 rounded-full  border p-1.5">
                 Avt
               </AvatarFallback>
             </Avatar>
@@ -268,10 +267,10 @@ const ModalPost = ({ modalIsOpen, closeModal }) => {
             <div>
               <Avatar>
                 <AvatarImage
-                  src="./placeholder.avif"
-                  className="w-4 h-4  rounded-full border"
+                  src={placeholderAvt}
+                  className="h-6 w-6 rounded-full border mt-1.5 "
                 />
-                <AvatarFallback className="w-9 rounded-full h-9 border p-1.5">
+                <AvatarFallback className="w-6 rounded-full h-6 border p-1.5">
                   Avt
                 </AvatarFallback>
               </Avatar>

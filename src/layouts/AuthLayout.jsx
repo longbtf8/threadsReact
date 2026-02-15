@@ -1,10 +1,12 @@
 import { Outlet } from "react-router";
+import bg from "@/assets/bgLogin.webp";
+import qr from "@/assets/qrThreads.svg";
 
 const AuthLayout = () => {
   return (
     <div className="flex flex-col w-screen h-screen relative">
       <img
-        src="./bgLogin.webp"
+        src={bg}
         alt="backgroundLogin"
         className="fixed top-0 object-cover h-128.75 w-full mt-[calc(100vh-950px)] -z-10  "
       />
@@ -14,7 +16,7 @@ const AuthLayout = () => {
       <div className="fixed right-6 bottom-10 w-32.5 h-38.75 text-[13px]  flex-col text-center items-center hidden md-plus:flex ] transition-all duration-300 xl:w-50 xl:bottom-15">
         <p className="mb-4 text-gray-400">Quét để tải ứng dụng</p>
         <img
-          src="./qrThreads.svg"
+          src={qr}
           alt="qrThreads"
           className="bg-background w-30 h-30 p-1 border rounded-2xl xl:w-35 xl:h-35 2xl:w-40 2xl:h-40 hover:scale-110 transition cursor-pointer "
         />

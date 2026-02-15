@@ -5,6 +5,7 @@ import { Menubar, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 import { useGetUserInfoQuery } from "@/services/Auth/authApi";
 
 import { ArrowLeft, Bell, CircleEllipsis } from "lucide-react";
+import avt from "@/assets/avatarProfile.jpg";
 
 const User = () => {
   const { data: userInfo } = useGetUserInfoQuery();
@@ -25,7 +26,7 @@ const User = () => {
                 </div>
                 <div>
                   <Avatar className="h-21 w-21">
-                    <AvatarImage src={"./avatarProfile.jpg"}></AvatarImage>
+                    <AvatarImage src={avt}></AvatarImage>
                     <AvatarFallback>Avatar</AvatarFallback>
                   </Avatar>
                 </div>
