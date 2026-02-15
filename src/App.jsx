@@ -2,7 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router";
 import routes from "./routes";
 function App() {
   return (
-    <Router basename="/threadsReact/">
+    <Router>
       <Routes>
         {routes.map((route, index) => {
           const Layout = route.layout;

@@ -2,7 +2,7 @@ import { useToggleSettingMenu } from "@/hooks/settingMenu/useToggleSetting";
 import { CircleArrowLeft, CircleEllipsis, Menu } from "lucide-react";
 import SettingsMenu from "../setting";
 import { useBackPage } from "@/hooks/useBackPage";
-import logo from "@/assets/Thread_logo.svg";
+
 const Header = ({ title, back = false }) => {
   // setting
   const { toggleSettingMenu, handleCloseMenu, setToggleSettingMenu } =
@@ -14,7 +14,7 @@ const Header = ({ title, back = false }) => {
       <div className="flex justify-center items-center h-15 ">
         <div className="flex justify-center h-full items-center w-full">
           <img
-            src={logo}
+            src="/Thread_logo.svg"
             alt="Logo"
             className="h-10 hover:scale-110 md:hidden"
           />
