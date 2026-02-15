@@ -69,7 +69,7 @@ function Login() {
       localStorage.setItem("accessToken", access_token);
       localStorage.setItem("refreshToken", refresh_token);
       dispatch(closeSignInUp());
-      window.location.href = "/";
+      navigate("/");
     }
   }, [data, isSuccess, dispatch]);
 

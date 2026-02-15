@@ -20,7 +20,7 @@ const AuthCard = () => {
           <p className="font-semibold"> Bùi Thành Long</p>
         </div>
       </div>
-      <p className="mt-6 text-center text-gray-400">
+      <p className="mt-6 text-center text-gray-400 hover:text-black">
         <Link to={"/login"}>Đăng nhập bằng tên người dùng</Link>
       </p>
     </div>
