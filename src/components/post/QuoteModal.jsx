@@ -37,12 +37,12 @@ const schema = zod
       zod.object({
         content: zod.string().min(1, "Nội dung không được để trống"),
         topic: zod.string().optional(),
-      })
+      }),
     ),
   })
   .required();
 
-export function AddPost({ isOpen, onClose, post }) {
+export function QuoteModal({ isOpen, onClose, post }) {
   const actionStyle = "cursor-pointer p-1.5 text-(--color-time)";
   //info Me
   const { data: currentUser } = useGetUserInfoQuery();
@@ -221,7 +221,7 @@ export function AddPost({ isOpen, onClose, post }) {
                   <MapPin size={30} className={`${actionStyle}`} />
                 </div>
 
-                <div className="min-h-10 flex-1 mt-2 border px-2 py-4 rounded-md  mb">
+                <div className="min-h-10 flex-1 mt-2 border px-2 py-4 rounded-md  mb pointer-events-none">
                   <PostCard
                     content={content}
                     username={username}

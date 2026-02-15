@@ -39,7 +39,7 @@ const InteractionBar = ({
   const dispatch = useDispatch();
 
   const { activePostId, activeType } = useSelector(
-    (state) => state.interaction
+    (state) => state.interaction,
   );
   const isRepeatOpen = activePostId === postId && activeType === "repeat";
   const isSendOpen = activePostId === postId && activeType === "send";
@@ -123,14 +123,16 @@ const InteractionBar = ({
         </ToggleGroupItem>
 
         {isRepeatOpen && (
-          <HandleRepeat
-            isOpen={isRepeatOpen}
-            onClose={() => {
-              dispatch(closeInteraction());
-            }}
-            handleRepost={handleToggleRepeat}
-            post={post}
-          />
+          <div onClick={(e) => e.stopPropagation()}>
+            <HandleRepeat
+              isOpen={isRepeatOpen}
+              onClose={() => {
+                dispatch(closeInteraction());
+              }}
+              handleRepost={handleToggleRepeat}
+              post={post}
+            />
+          </div>
         )}
       </div>
 
@@ -150,7 +152,7 @@ const InteractionBar = ({
                     postId,
                     type: "send",
                     data: { username: post?.user?.username, post: post },
-                  })
+                  }),
                 );
               },
             });

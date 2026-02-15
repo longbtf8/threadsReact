@@ -48,7 +48,7 @@ const PostCard = ({
   // menu
   const dispatch = useDispatch();
   const { activePostId, activeType } = useSelector(
-    (state) => state.interaction
+    (state) => state.interaction,
   );
   const isMenuOpen = activePostId === post?.id && activeType === "menuPost";
 
@@ -104,7 +104,7 @@ const PostCard = ({
                         type: "menuPost",
                         postId: post?.id,
                         data: { username: username },
-                      })
+                      }),
                     );
                     console.log(1);
                   }}
@@ -147,7 +147,7 @@ const PostCard = ({
         )}
       </div>
       {toggleComment && (
-        <div>
+        <div onClick={(e) => e.stopPropagation()}>
           <Comment
             username={username}
             post={post}

@@ -32,7 +32,7 @@ const schema = zod.object({
     zod.object({
       content: zod.string().min(1, "Nội dung không được để trống"), // Validate bắt buộc
       topic: zod.string().optional(),
-    })
+    }),
   ),
 });
 
@@ -171,6 +171,7 @@ export function ReplyModal({ isOpen, onClose, post }) {
         <form
           className="flex-1 flex-col flex  min-h-0"
           onSubmit={handleSubmit(onSubmit)}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="overflow-y-auto flex-1 flex-col flex  min-h-0 overflow-x-hidden">
             {/* Content Post */}
@@ -178,7 +179,7 @@ export function ReplyModal({ isOpen, onClose, post }) {
             <div className="flex gap-3  pt-4 pb-1.25 relative">
               <div className="flex-1">
                 <div
-                  className="min-h-10 flex-1 mt-2 rounded-md mb-5 -mx-4 "
+                  className="min-h-10 flex-1 mt-2 rounded-md mb-5 -mx-4 pointer-events-none "
                   ref={replyDiv}
                 >
                   <PostCard

@@ -14,7 +14,7 @@ const Header = ({ title, back = false }) => {
       <div className="flex justify-center items-center h-15 ">
         <div className="flex justify-center h-full items-center w-full">
           <img
-            src="./Thread_logo.svg"
+            src="/Thread_logo.svg"
             alt="Logo"
             className="h-10 hover:scale-110 md:hidden"
           />

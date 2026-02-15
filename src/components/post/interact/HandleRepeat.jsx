@@ -1,6 +1,6 @@
 import { MessageSquareQuote, Repeat } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { AddPost } from "../QuoteModal";
+import { QuoteModal } from "../QuoteModal";
 import { useSetQuoteModal } from "@/hooks/useSetQuoteModal";
 import { useHandleClickOutSide } from "@/hooks/useHandleClickOutSide";
 
@@ -28,17 +28,18 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
     isOpen: isOpen,
     onClose: onClose,
   });
+  if (!isOpen) return null;
   return (
-    <>
+    <div>
       {!toggleQuote && isOpen && (
         <div
           className={`inset-0 bg-black/50  fixed left-0 bottom-15 md:z-40 z-100 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent `}
           onClick={onClose}
         >
           <div
-            ref={repeatRef}
             className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 z-1000 border  md:absolute md:min-w-50 md:top-0 md:right-auto md:bottom-auto md:left-0 md:rounded-2xl"
             onClick={(e) => e.stopPropagation()}
+            ref={repeatRef}
           >
             {/* core */}
 
@@ -67,8 +68,12 @@ const HandleRepeat = ({ isOpen, onClose, handleRepost, post }) => {
         </div>
       )}
 
-      <AddPost isOpen={toggleQuote} onClose={handleToggleQuote} post={post} />
-    </>
+      <QuoteModal
+        isOpen={toggleQuote}
+        onClose={handleToggleQuote}
+        post={post}
+      />
+    </div>
   );
 };
 export default HandleRepeat;

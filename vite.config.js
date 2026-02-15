@@ -13,6 +13,7 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  base: "/threadsReact/",
   resolve: {
     alias: {
       // eslint-disable-next-line no-undef

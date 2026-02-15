@@ -1,9 +1,10 @@
 import { CodeXml, Images, Link } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { CopyAsImage } from "../modalCopyAsImage";
 import { EmbedModal } from "../EmbedModal";
 import { handleCopyPostLink } from "../handleCopyPostLink";
+import { useHandleClickOutSide } from "@/hooks/useHandleClickOutSide";
 
 // HandleSend
 const HandleSend = ({ isOpen, onClose }) => {
@@ -48,12 +49,21 @@ const HandleSend = ({ isOpen, onClose }) => {
     setEmbedModal(false);
     onClose();
   };
+
+  // click ra ngoài đóng
+  const sendRef = useRef();
+  useHandleClickOutSide({
+    valueRef: sendRef,
+    isOpen: isOpen,
+    onClose: onClose,
+  });
   return (
     <>
       {isOpen && !toggleModalCpImg && !toggleEmbedModal && (
         <div
           className="inset-0 bg-black/50  fixed left-0 bottom-15 md:z-40 z-100 md:absolute md:bottom-auto md:left-0 md:inset-auto md:top-full md:bg-transparent"
           onClick={onClose}
+          ref={sendRef}
         >
           <div
             className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl p-2 z-1000 border  md:absolute md:min-w-60 md:top-0 md:right-auto md:bottom-auto md:left-0 md:rounded-2xl md:p-2 md:h-36"
