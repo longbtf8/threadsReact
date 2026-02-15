@@ -71,6 +71,7 @@ function Login() {
       dispatch(closeSignInUp());
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isSuccess, dispatch]);
 
   const submit = (fromData) => {
